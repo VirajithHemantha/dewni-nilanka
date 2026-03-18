@@ -20,16 +20,6 @@ import {
   Sparkles,
 } from "lucide-react";
 
-// Global discovery flag — once any card is tapped, hint vanishes on all cards
-let globalDiscovered = false;
-const discoveryListeners: (() => void)[] = [];
-
-function markDiscovered() {
-  if (globalDiscovered) return;
-  globalDiscovered = true;
-  discoveryListeners.forEach((fn) => fn());
-}
-
 // FlipCard Component with 3D Tilt Effect + Premium Mobile Tap Hint
 function FlipCard({
   front,
@@ -47,7 +37,6 @@ function FlipCard({
   [key: string]: any;
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [showHint, setShowHint] = useState(!globalDiscovered);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -61,12 +50,18 @@ function FlipCard({
   const springRotateY = useSpring(rotateY, springConfig);
 
   useEffect(() => {
-    setIsTouchDevice(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
-    const handle = () => setShowHint(false);
-    discoveryListeners.push(handle);
+    const mql = window.matchMedia("(hover: none) and (pointer: coarse)");
+
+    const update = () => setIsTouchDevice(mql.matches);
+    update();
+
+    // Safari iOS compatibility
+    if (typeof mql.addEventListener === "function") mql.addEventListener("change", update);
+    else (mql as any).addListener?.(update);
+
     return () => {
-      const idx = discoveryListeners.indexOf(handle);
-      if (idx > -1) discoveryListeners.splice(idx, 1);
+      if (typeof mql.removeEventListener === "function") mql.removeEventListener("change", update);
+      else (mql as any).removeListener?.(update);
     };
   }, []);
 
@@ -89,10 +84,6 @@ function FlipCard({
     if (target?.closest("[data-no-flip]")) return;
 
     setIsFlipped((prev) => !prev);
-    if (!globalDiscovered) {
-      setShowHint(false);
-      markDiscovered();
-    }
   }
 
   return (
@@ -141,12 +132,12 @@ function FlipCard({
       </motion.div>
 
       <AnimatePresence>
-        {showHint && isTouchDevice && !isFlipped && (
+        {isTouchDevice && !isFlipped && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6, transition: { duration: 0.4 } }}
-            transition={{ delay: 0.7, duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="absolute bottom-3 left-0 right-0 flex justify-center pointer-events-none z-50"
           >
             <motion.div
