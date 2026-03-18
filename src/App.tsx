@@ -273,9 +273,8 @@ export default function App() {
               transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
               className="absolute top-12 md:top-24 left-0 right-0 text-center z-10 pointer-events-none"
             >
-              <h1 className="serif text-4xl md:text-6xl text-sage/80 font-light tracking-[0.2em] drop-shadow-xl">Hashimi <span className="opacity-30">&</span> <span className="blur-sm select-none opacity-40" style={{filter:"blur(6px)"}}>Zerlin</span></h1>
-              <p className="mt-2 text-[9px] md:text-xs uppercase tracking-[0.5em] text-sage/50 font-bold">Open to reveal ✦</p>
-              <p className="mt-1 text-[10px] md:text-xs uppercase tracking-[0.6em] text-sage/60 font-bold">23 May 2026</p>
+              <h1 className="serif text-4xl md:text-6xl text-sage/80 font-light tracking-[0.2em] drop-shadow-xl">Hashimi & Zerlin</h1>
+              <p className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.6em] text-sage/60 font-bold">23 May 2026</p>
             </motion.div>
 
             {/* Slow Spinning Elegant Ambient Rings */}
@@ -530,40 +529,40 @@ export default function App() {
             <div className="h-px w-8 md:w-16 bg-current opacity-30" />
           </motion.div>
 
-          <h1 className="flex flex-col items-center px-4">
-            <span className="serif italic text-3xl sm:text-5xl md:text-[8rem] text-sage font-light leading-tight drop-shadow-sm mb-2 md:mb-6">
+          <h1 className="flex flex-col items-center px-2">
+            <span className="serif italic text-3xl sm:text-5xl md:text-[8rem] text-sage font-light leading-tight drop-shadow-sm mb-1 md:mb-6">
               You're Invited!
             </span>
-            <span className="serif text-base md:text-4xl text-sage/40 tracking-[0.2em] md:tracking-[0.3em] uppercase font-light">to the wedding of</span>
+            <span className="serif text-sm sm:text-base md:text-4xl text-sage/40 tracking-[0.15em] md:tracking-[0.3em] uppercase font-light">to the wedding of</span>
           </h1>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-16 mt-6 md:mt-8 relative">
+          <div className="flex flex-row md:flex-row items-center justify-center gap-2 sm:gap-4 md:gap-16 mt-4 md:mt-8 relative w-full px-2">
             {/* Subtle Glow Backdrop */}
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-32 bg-sage/5 blur-3xl rounded-full" />
 
             <motion.h2
               whileHover={{ scale: 1.05 }}
-              className="script text-5xl sm:text-7xl md:text-9xl text-sage drop-shadow-lg relative z-10"
+              className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none"
             >
               Hashimi
             </motion.h2>
 
-            <div className="relative my-2 md:my-0 flex items-center justify-center">
-              <div className="h-px w-12 md:w-24 bg-sage/20 hidden md:block" />
-              <div className="relative mx-4">
-                <Heart className="text-sage/40 w-6 h-6 md:w-10 md:h-10 animate-pulse" fill="currentColor" />
+            <div className="relative flex items-center justify-center shrink-0">
+              <div className="h-px w-6 md:w-24 bg-sage/20 hidden md:block" />
+              <div className="relative mx-1 md:mx-4">
+                <Heart className="text-sage/40 w-5 h-5 sm:w-7 sm:h-7 md:w-10 md:h-10 animate-pulse" fill="currentColor" />
                 <motion.div
                   animate={{ scale: [1, 1.5, 1], opacity: [0, 1, 0] }}
                   transition={{ repeat: Infinity, duration: 2 }}
                   className="absolute inset-0 bg-sage/20 blur-xl rounded-full"
                 />
               </div>
-              <div className="h-px w-12 md:w-24 bg-sage/20 hidden md:block" />
+              <div className="h-px w-6 md:w-24 bg-sage/20 hidden md:block" />
             </div>
 
             <motion.h2
               whileHover={{ scale: 1.05 }}
-              className="script text-5xl sm:text-7xl md:text-9xl text-sage drop-shadow-lg relative z-10"
+              className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none"
             >
               Zerlin
             </motion.h2>
