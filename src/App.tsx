@@ -11,7 +11,6 @@ import {
   HelpCircle,
   MapPin,
   Clock,
-  Info,
   Heart,
   CheckCircle2,
   Flower2,
@@ -325,9 +324,8 @@ function RSVPForm() {
             type="button"
             data-no-flip
             onClick={() => setAttendance("yes")}
-            className={`py-3 md:py-2.5 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${
-              attendance === "yes" ? "bg-sage text-white border-sage" : "bg-white/40 text-sage border-sage/30"
-            }`}
+            className={`py-3 md:py-2.5 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${attendance === "yes" ? "bg-sage text-white border-sage" : "bg-white/40 text-sage border-sage/30"
+              }`}
           >
             Attending
           </button>
@@ -335,9 +333,8 @@ function RSVPForm() {
             type="button"
             data-no-flip
             onClick={() => setAttendance("no")}
-            className={`py-3 md:py-2.5 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${
-              attendance === "no" ? "bg-zinc-800 text-white border-zinc-800" : "bg-white/40 text-zinc-700 border-zinc-300/60"
-            }`}
+            className={`py-3 md:py-2.5 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${attendance === "no" ? "bg-zinc-800 text-white border-zinc-800" : "bg-white/40 text-zinc-700 border-zinc-300/60"
+              }`}
           >
             Not Attending
           </button>
@@ -348,9 +345,8 @@ function RSVPForm() {
             type="button"
             data-no-flip
             onClick={() => setPartyType("individual")}
-            className={`py-3 md:py-2 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${
-              partyType === "individual" ? "bg-sage/90 text-white border-sage" : "bg-white/40 text-sage border-sage/30"
-            }`}
+            className={`py-3 md:py-2 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${partyType === "individual" ? "bg-sage/90 text-white border-sage" : "bg-white/40 text-sage border-sage/30"
+              }`}
           >
             Individual
           </button>
@@ -358,9 +354,8 @@ function RSVPForm() {
             type="button"
             data-no-flip
             onClick={() => setPartyType("family")}
-            className={`py-3 md:py-2 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${
-              partyType === "family" ? "bg-sage/90 text-white border-sage" : "bg-white/40 text-sage border-sage/30"
-            }`}
+            className={`py-3 md:py-2 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${partyType === "family" ? "bg-sage/90 text-white border-sage" : "bg-white/40 text-sage border-sage/30"
+              }`}
           >
             Family
           </button>
@@ -403,9 +398,8 @@ function RSVPForm() {
                 disabled={!isAttending}
                 value={guest?.meal ?? "non-veg"}
                 onChange={(ev) => updateGuest(idx, { meal: ev.target.value as MealPreference })}
-                className={`w-full rounded-xl border border-sage/20 bg-white/60 px-3 py-2.5 text-xs text-zinc-700 outline-none ${
-                  !isAttending ? "opacity-60" : ""
-                }`}
+                className={`w-full rounded-xl border border-sage/20 bg-white/60 px-3 py-2.5 text-xs text-zinc-700 outline-none ${!isAttending ? "opacity-60" : ""
+                  }`}
               >
                 <option value="veg">Veg</option>
                 <option value="non-veg">Non-Veg</option>
@@ -945,13 +939,13 @@ export default function App() {
               <motion.div
                 initial={{ y: 120, opacity: 0 }}
                 animate={{
-                  y: isSmallScreen ? -32 : -58,
+                  y: isSmallScreen ? -46 : -58,
                   opacity: 1,
                 }}
                 transition={{ duration: 1.4, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute left-3 right-3 sm:left-6 sm:right-6 md:left-16 md:right-16 z-20"
                 style={{
-                  bottom: isSmallScreen ? "26%" : "33%",
+                  bottom: isSmallScreen ? "30%" : "33%",
                   top: "auto",
                 }}
               >
@@ -988,8 +982,9 @@ export default function App() {
                   </div>
 
                   {/* content */}
-                  <div className="relative z-10 px-4 pt-8 pb-7 sm:px-6 sm:pt-9 sm:pb-8 md:px-12 md:py-10 flex flex-col items-center text-center gap-3 md:gap-4">
-                    <div className="flex items-center gap-3 w-full max-w-[220px]">
+                  <div className="relative z-10 px-4 pt-5 pb-4 sm:px-6 sm:pt-7 sm:pb-7 md:px-10 md:py-8 flex flex-col items-center text-center gap-0 sm:gap-2 md:gap-3">
+                    {/* top ornament */}
+                    <div className="flex items-center gap-3 w-full max-w-[240px]">
                       <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/55" />
                       <motion.div
                         animate={{ rotate: [0, 10, -10, 0] }}
@@ -1002,54 +997,65 @@ export default function App() {
                       <div className="flex-1 h-px bg-gradient-to-l from-transparent to-taupe/55" />
                     </div>
 
-                    <div className="relative">
-                      <motion.div
-                        animate={{ scale: [1, 1.04, 1] }}
-                        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                        className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-sage to-umber shadow-[0_4px_16px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.2)] flex items-center justify-center border-2 border-sand/35"
-                      >
-                        <span className="serif text-white font-bold text-lg md:text-2xl tracking-tight drop-shadow">H&Z</span>
-                      </motion.div>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                        className="absolute -inset-2 rounded-full border border-dashed border-taupe/30"
-                      />
-                    </div>
+                    {/* logo */}
+                    <motion.div
+                      animate={{ scale: [1, 1.04, 1] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                      className="-mb-3 sm:-mb-2 md:mb-0"
+                    >
+                      <img src="/images/logo.png" alt="H&Z Logo" className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 object-contain drop-shadow-md" />
+                    </motion.div>
 
-                    <div className="space-y-1">
-                      <p className="text-[8px] sm:text-[9px] md:text-[10px] uppercase tracking-[0.28em] sm:tracking-[0.35em] md:tracking-[0.5em] text-taupe font-bold">
-                        You are cordially invited to
+                    {/* hosting families */}
+                    <div className="space-y-0.5">
+                      <p className="text-[8px] sm:text-[9px] md:text-[11px] uppercase tracking-[0.3em] text-umber font-bold leading-relaxed">
+                        MR. &amp; MRS. ZAKEER
                       </p>
-                      <h3 className="serif text-[20px] sm:text-[24px] md:text-4xl text-umber font-light tracking-[0.05em] md:tracking-[0.08em] leading-tight">
-                        The Wedding of
-                      </h3>
+                      <p className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-medium">
+                        TOGETHER WITH
+                      </p>
+                      <p className="text-[8px] sm:text-[9px] md:text-[11px] uppercase tracking-[0.3em] text-umber font-bold leading-relaxed">
+                        MR. &amp; MRS. ZAFIR ISMAIL
+                      </p>
                     </div>
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-1.5 md:gap-5 max-w-full px-2">
-                      <span className="script text-[28px] sm:text-[34px] md:text-5xl text-sage drop-shadow-sm leading-[1.1]">
-                        Hashimi
-                      </span>
-                      <Heart size={14} className="text-taupe/60 shrink-0" fill="currentColor" />
-                      <span className="script text-[28px] sm:text-[34px] md:text-5xl text-sage drop-shadow-sm leading-[1.1]">
+                    <p className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-taupe/80 font-medium leading-relaxed max-w-[200px] md:max-w-xs">
+                      REQUEST THE PLEASURE OF YOUR COMPANY TO CELEBRATE THE MARRIAGE OF THEIR CHILDREN
+                    </p>
+
+                    {/* couple names */}
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-4 max-w-full px-2">
+                      <span className="script text-[26px] sm:text-[32px] md:text-[48px] text-sage drop-shadow-sm leading-[1.1]">
                         Zerlin
                       </span>
+                      <span className="text-taupe/50 text-sm md:text-xl font-serif">&amp;</span>
+                      <span className="script text-[26px] sm:text-[32px] md:text-[48px] text-sage drop-shadow-sm leading-[1.1]">
+                        Hashimi
+                      </span>
                     </div>
 
-                    <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-umber/70 w-full">
+                    {/* date / time / venue */}
+                    <div className="flex items-center gap-2 sm:gap-3 text-umber/70 w-full mt-1">
                       <div className="h-px flex-1 bg-sand/45" />
-                      <div className="flex flex-col items-center min-w-0">
-                        <span className="serif italic text-[10px] sm:text-[11px] md:text-sm tracking-wider whitespace-nowrap">
-                          23 May 2026
+                      <div className="flex flex-col items-center gap-0.5">
+                        <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-taupe font-bold">
+                          MAY · SATURDAY
                         </span>
-                        <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.14em] sm:tracking-[0.2em] md:tracking-[0.3em] text-taupe mt-1 text-center leading-relaxed">
-                          Waters Edge · Grand Ballroom
+                        <span className="serif text-[22px] sm:text-[28px] md:text-4xl text-umber font-medium leading-none">
+                          23
+                        </span>
+                        <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-bold">
+                          7:15 PM · 2026
+                        </span>
+                        <span className="mt-1 block max-w-[200px] px-2 text-[7px] sm:text-[7px] md:text-[8px] uppercase tracking-[0.12em] text-taupe/75 text-center leading-snug break-words">
+                          GRAND BALLROOM, WATERS EDGE
                         </span>
                       </div>
                       <div className="h-px flex-1 bg-sand/45" />
                     </div>
 
-                    <div className="flex items-center gap-3 w-full max-w-[220px]">
+                    {/* bottom ornament */}
+                    <div className="flex items-center gap-3 w-full max-w-[240px]">
                       <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/55" />
                       <svg viewBox="0 0 16 16" className="w-3 h-3 opacity-40 text-sage" fill="currentColor">
                         <path d="M8 0 L9.5 6.5 L16 8 L9.5 9.5 L8 16 L6.5 9.5 L0 8 L6.5 6.5 Z" />
@@ -1101,68 +1107,8 @@ export default function App() {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="w-full h-full col-span-1"
-          >
-            <FlipCard
-              containerClassName="w-full h-[220px] md:h-[350px] lg:h-[350px]"
-              front={
-                <div className="w-full h-full relative overflow-hidden bg-[#3D2215] flex flex-col justify-center items-center text-center p-6 group">
-                  <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/floral-paper.png')] pointer-events-none" />
-                  <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-[#C4714A]/25 to-transparent blur-2xl" />
-                  <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-[#A84C2C]/25 to-transparent blur-2xl" />
-                  <div className="relative z-10 space-y-4">
-                    <motion.div
-                      animate={{ rotate: [0, 5, -5, 0] }}
-                      transition={{ repeat: Infinity, duration: 4 }}
-                      className="text-[#C9B99A] opacity-60 group-hover:opacity-100 transition-opacity"
-                    >
-                      <Info size={32} />
-                    </motion.div>
-                    <div>
-                      <p className="serif italic text-[10px] md:text-sm text-[#C9B99A] mb-1 uppercase tracking-[0.3em]">Explore</p>
-                      <h3 className="serif text-2xl md:text-4xl text-white tracking-[0.1em] font-light">The Details</h3>
-                    </div>
-                    <div className="w-8 h-px bg-[#C9B99A]/60 mx-auto group-hover:w-16 transition-all duration-700" />
-                  </div>
-                </div>
-              }
-              back={
-                <>
-                  <h4 className="serif text-xl md:text-3xl text-sage mb-3 md:mb-6">Ceremony Details</h4>
-                  <div className="space-y-1.5 md:space-y-4 text-[10px] md:text-sm text-zinc-600 w-full px-1 md:px-4">
-                    <div className="flex justify-between border-b border-sage/20 pb-1 md:pb-2">
-                      <span className="font-bold tracking-widest uppercase text-[8px] md:text-xs">Dress Code</span>
-                      <span className="serif italic text-[10px] md:text-sm">Formal Attire</span>
-                    </div>
-                    <div className="flex justify-between border-b border-sage/20 pb-1 md:pb-2">
-                      <span className="font-bold tracking-widest uppercase text-[8px] md:text-xs">Gifts</span>
-                      <span className="serif italic text-[10px] md:text-sm">Monetary</span>
-                    </div>
-                    <div className="flex justify-between border-b border-sage/20 pb-1 md:pb-2">
-                      <span className="font-bold tracking-widest uppercase text-[8px] md:text-xs">Photography</span>
-                      <span className="serif italic text-[10px] md:text-sm">Welcome</span>
-                    </div>
-                    <div className="flex justify-between border-b border-sage/20 pb-1 md:pb-2">
-                      <span className="font-bold tracking-widest uppercase text-[8px] md:text-xs">Language</span>
-                      <span className="serif italic text-[10px] md:text-sm">Sinhala / English</span>
-                    </div>
-                    <div className="flex justify-between pb-1 md:pb-2">
-                      <span className="font-bold tracking-widest uppercase text-[8px] md:text-xs">Country</span>
-                      <span className="serif italic text-[10px] md:text-sm">🇱🇰 Sri Lanka</span>
-                    </div>
-                  </div>
-                </>
-              }
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full h-full col-span-1"
+            className="w-full h-full col-span-2 sm:col-span-1"
           >
             <FlipCard
               containerClassName="w-full h-[220px] md:h-[350px] lg:h-[350px]"
@@ -1171,7 +1117,7 @@ export default function App() {
                   <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-40 pointer-events-none" />
                   <div className="relative z-10 space-y-2 md:space-y-8 scale-[0.9] md:scale-100">
                     <div className="space-y-1">
-                      <span className="serif italic text-[14px] md:text-2xl text-sage/70">Save the Date</span>
+                      <span className="serif italic text-[14px] md:text-2xl text-sage/70">Our Wedding Date</span>
                       <div className="w-full h-px bg-sage/20" />
                     </div>
 
@@ -1203,13 +1149,9 @@ export default function App() {
               back={
                 <>
                   <Heart size={20} className="text-sage mb-2 md:mb-6 mx-auto opacity-70 md:w-8 md:h-8" />
-                  <p className="serif text-[14px] md:text-2xl italic text-sage mb-2 md:mb-4 leading-relaxed">
-                    Save the date <br /> to celebrate our union.
-                  </p>
+                  <p className="serif text-[14px] md:text-2xl italic text-sage mb-2 md:mb-4 leading-relaxed">Our wedding date</p>
                   <p className="text-[8px] md:text-xs text-zinc-500 uppercase tracking-widest leading-loose">
-                    Ensure to mark your calendar.
-                    <br />
-                    Formal invitation to follow.
+                    Saturday · 23 May 2026
                   </p>
                 </>
               }
@@ -1221,26 +1163,22 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="w-full h-full col-span-2 lg:col-span-1"
+            className="w-full h-full col-span-2 lg:col-span-2"
           >
             <FlipCard
               containerClassName="w-full h-[380px] md:h-[350px] lg:h-[350px]"
               front={
                 <div className="w-full h-full bg-[#F5EFE0] p-6 flex flex-col justify-center items-center text-center relative group overflow-hidden">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-sage/10 rounded-full blur-3xl pointer-events-none" />
-                  <div className="relative z-10 space-y-6">
+                  <div className="relative z-10 space-y-3 md:space-y-6">
                     <p className="serif italic text-lg md:text-2xl text-sage/60 group-hover:scale-110 transition-transform">Kindly</p>
-                    <div className="relative w-24 h-24 md:w-36 md:h-36 flex items-center justify-center">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                        className="absolute inset-0 border border-sage/10 rounded-full border-dashed"
-                      />
-                      <div className="w-16 h-16 md:w-28 md:h-28 bg-sage rounded-full flex items-center justify-center shadow-xl border-4 border-sage/50 relative overflow-hidden group-hover:scale-110 transition-transform duration-500">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
-                        <p className="serif text-white font-bold text-3xl md:text-6xl tracking-tighter drop-shadow-md">H&Z</p>
-                      </div>
-                    </div>
+                    <motion.div
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                      className="group-hover:scale-110 transition-transform duration-500"
+                    >
+                      <img src="/images/logo.png" alt="H&Z Logo" className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-contain drop-shadow-xl" />
+                    </motion.div>
                     <h3 className="serif text-2xl md:text-4xl tracking-[0.3em] font-medium text-sage">RSVP</h3>
                   </div>
                 </div>
@@ -1256,7 +1194,7 @@ export default function App() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.4 }}
-            className="hidden sm:flex w-full h-full col-span-1 items-center justify-center"
+            className="flex w-full h-full col-span-2 sm:col-span-1 items-center justify-center"
           >
             <FlipCard
               containerClassName="w-full h-[220px] md:h-[350px] lg:h-[350px] flex items-center justify-center"
@@ -1307,8 +1245,8 @@ export default function App() {
               front={
                 <div className="w-full h-full relative group">
                   <img
-                    src="https://www.watersedge.lk/wp-content/uploads/2018/04/Ballroom-2-768x512.jpg"
-                    alt="Venue"
+                    src="https://www.watersedge.lk/wp-content/uploads/2026/01/004A2024-1024x1536.jpg"
+                    alt="Waters Edge Grand Ballroom"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
@@ -1323,6 +1261,16 @@ export default function App() {
                       <br />
                       Grand Ballroom
                     </h3>
+
+                    <motion.button
+                      data-no-flip
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => window.open("https://maps.app.goo.gl/3EQ7xzj3EX9T2xEx6", "_blank")}
+                      className="mt-3 md:mt-5 px-5 py-2 md:px-7 md:py-3 bg-sage text-white rounded-full text-[9px] md:text-xs font-bold uppercase tracking-widest hover:bg-zinc-800 transition-colors"
+                    >
+                      View Map
+                    </motion.button>
                   </div>
 
                   <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-sage flex items-center gap-3 bg-white/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/60 shadow-lg">
@@ -1397,46 +1345,13 @@ export default function App() {
 
                   <div className="w-full max-w-sm space-y-4 md:space-y-6 text-left">
                     <div className="flex items-start gap-2 md:gap-4">
-                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">7:00 PM</span>
+                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">7:45 PM</span>
                       <div className="w-px h-full bg-sage/30 relative mt-2 -ml-[1px] md:-ml-2 shrink-0">
                         <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-sage" />
                       </div>
                       <div>
                         <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider">Nikkah Ceremony</p>
-                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Wedding Ceremony</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-2 md:gap-4">
-                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">7:30 PM</span>
-                      <div className="w-px h-12 md:h-16 bg-sage/30 relative -ml-[1px] md:-ml-2 shrink-0">
-                        <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-sage" />
-                      </div>
-                      <div className="-mt-1">
-                        <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider">Couple Arrival</p>
-                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Grand Entrance</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-2 md:gap-4">
-                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">8:00 PM</span>
-                      <div className="w-px h-full bg-transparent relative mt-2 -ml-[1px] md:-ml-2 shrink-0">
-                        <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-sage" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider">Dinner</p>
-                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Dinner Service</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-2 md:gap-4">
-                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">9:00 PM</span>
-                      <div className="w-px h-full bg-transparent relative mt-2 -ml-[1px] md:-ml-2 shrink-0">
-                        <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-sage" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider">Dance Floor</p>
-                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Dancing Begins</p>
+                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Followed by Dinner</p>
                       </div>
                     </div>
                   </div>
