@@ -315,7 +315,7 @@ function RSVPForm() {
       <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest mb-4 md:mb-6 text-center leading-relaxed">
         Please let us know by
         <br />
-        May 1st, 2026
+        04.05.2026
       </p>
 
       <form onSubmit={submit} className="space-y-4 md:space-y-4 px-1 md:px-2">
@@ -537,7 +537,7 @@ export default function App() {
               className="absolute top-12 md:top-24 left-0 right-0 text-center z-10 pointer-events-none"
             >
               <h1 className="serif text-4xl md:text-6xl text-sage/80 font-light tracking-[0.2em] drop-shadow-xl">
-                Hashimi & Zerlin
+                Zerlin & Hashimi
               </h1>
               <p className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.6em] text-sage/60 font-bold">
                 23 May 2026
@@ -804,7 +804,7 @@ export default function App() {
             <span className="serif italic text-3xl sm:text-5xl md:text-[8rem] text-sage font-light leading-tight drop-shadow-sm mb-1 md:mb-6">
               You're Invited!
             </span>
-            <span className="serif text-sm sm:text-base md:text-4xl text-sage/40 tracking-[0.15em] md:tracking-[0.3em] uppercase font-light">
+            <span className="serif text-sm sm:text-base md:text-4xl text-umber tracking-[0.15em] md:tracking-[0.3em] uppercase font-light">
               to the wedding of
             </span>
           </h1>
@@ -813,7 +813,7 @@ export default function App() {
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-32 bg-sage/5 blur-3xl rounded-full" />
 
             <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none">
-              Hashimi
+              Zerlin
             </motion.h2>
 
             <div className="relative flex items-center justify-center shrink-0">
@@ -830,7 +830,7 @@ export default function App() {
             </div>
 
             <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none">
-              Zerlin
+              Hashimi
             </motion.h2>
           </div>
 
@@ -1003,18 +1003,18 @@ export default function App() {
                       transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
                       className="-mb-3 sm:-mb-2 md:mb-0"
                     >
-                      <img src="/images/logo.png" alt="H&Z Logo" className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 object-contain drop-shadow-md" />
+                      <img src="/images/logo.png" alt="Z&H Logo" className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 object-contain drop-shadow-md" />
                     </motion.div>
 
                     {/* hosting families */}
                     <div className="space-y-0.5">
-                      <p className="text-[8px] sm:text-[9px] md:text-[11px] uppercase tracking-[0.3em] text-umber font-bold leading-relaxed">
+                      <p className="serif text-[9px] sm:text-[10px] md:text-[13px] uppercase tracking-[0.3em] text-umber font-normal leading-relaxed">
                         MR. &amp; MRS. ZAKEER
                       </p>
                       <p className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-medium">
                         TOGETHER WITH
                       </p>
-                      <p className="text-[8px] sm:text-[9px] md:text-[11px] uppercase tracking-[0.3em] text-umber font-bold leading-relaxed">
+                      <p className="serif text-[9px] sm:text-[10px] md:text-[13px] uppercase tracking-[0.3em] text-umber font-normal leading-relaxed">
                         MR. &amp; MRS. ZAFIR ISMAIL
                       </p>
                     </div>
@@ -1038,11 +1038,11 @@ export default function App() {
                     <div className="flex items-center gap-2 sm:gap-3 text-umber/70 w-full mt-1">
                       <div className="h-px flex-1 bg-sand/45" />
                       <div className="flex flex-col items-center gap-0.5">
-                        <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-taupe font-bold">
-                          MAY · SATURDAY
-                        </span>
                         <span className="serif text-[22px] sm:text-[28px] md:text-4xl text-umber font-medium leading-none">
                           23
+                        </span>
+                        <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-taupe font-bold">
+                          MAY · SATURDAY
                         </span>
                         <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-bold">
                           7:15 PM · 2026
@@ -1108,54 +1108,42 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full h-full col-span-2 sm:col-span-1"
+            className="w-full h-full col-span-2 lg:col-span-2"
           >
-            <FlipCard
-              containerClassName="w-full h-[220px] md:h-[350px] lg:h-[350px]"
-              front={
-                <div className="w-full h-full bg-[#F5EFE0] p-2 md:p-8 flex flex-col items-center justify-center text-center space-y-2 md:space-y-4 relative group">
-                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-40 pointer-events-none" />
-                  <div className="relative z-10 space-y-2 md:space-y-8 scale-[0.9] md:scale-100">
-                    <div className="space-y-1">
-                      <span className="serif italic text-[14px] md:text-2xl text-sage/70">Our Wedding Date</span>
-                      <div className="w-full h-px bg-sage/20" />
-                    </div>
-
-                    <div className="flex flex-col items-center">
-                      <p className="text-[8px] md:text-xs uppercase tracking-[0.4em] text-zinc-400 font-black mb-1 md:mb-2">Saturday</p>
-                      <div className="relative inline-block px-6 md:px-8 py-1 md:py-2 border-y border-sage/30">
-                        <p className="serif text-5xl md:text-8xl font-medium text-sage leading-none">23</p>
-                        <motion.div
-                          animate={{ opacity: [0.4, 1, 0.4] }}
-                          transition={{ repeat: Infinity, duration: 2 }}
-                          className="absolute -top-1 -right-1 text-[#A84C2C]"
-                        >
-                          <Sparkles size={12} className="md:w-4 md:h-4" />
-                        </motion.div>
-                      </div>
-                      <p className="serif text-sm md:text-2xl font-light tracking-[0.2em] mt-2 md:mt-3">MAY</p>
-                    </div>
-
-                    <div className="pt-1">
-                      <p className="text-[7px] md:text-xs uppercase tracking-[0.4em] md:tracking-[0.5em] font-black text-sage/40">
-                        Twenty Twenty Six
-                      </p>
-                    </div>
+            <div className="w-full h-[220px] md:h-[350px] lg:h-[350px] relative overflow-hidden rounded-[2rem] shadow-2xl border border-white/40 ring-1 ring-black/5">
+              <div className="w-full h-full bg-[#F5EFE0] p-2 md:p-8 flex flex-col items-center justify-center text-center space-y-2 md:space-y-4 relative group">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-40 pointer-events-none" />
+                <div className="relative z-10 space-y-2 md:space-y-8 scale-[0.9] md:scale-100">
+                  <div className="space-y-1">
+                    <span className="serif italic text-[14px] md:text-2xl text-sage/70">Our Wedding Date</span>
+                    <div className="w-full h-px bg-sage/20" />
                   </div>
 
-                  <div className="absolute bottom-0 left-0 right-0 h-4 bg-paper clip-path-[polygon(0%_100%,_5%_80%,_10%_100%,_15%_80%,_20%_100%,_25%_80%,_30%_100%,_35%_80%,_40%_100%,_45%_80%,_50%_100%,_55%_80%,_60%_100%,_65%_80%,_70%_100%,_75%_80%,_80%_100%,_85%_80%,_90%_100%,_95%_80%,_100%_100%)] opacity-50" />
+                  <div className="flex flex-col items-center">
+                    <p className="text-[8px] md:text-xs uppercase tracking-[0.4em] text-zinc-400 font-black mb-1 md:mb-2">Saturday</p>
+                    <div className="relative inline-block px-6 md:px-8 py-1 md:py-2 border-y border-sage/30">
+                      <p className="serif text-5xl md:text-8xl font-medium text-sage leading-none">23</p>
+                      <motion.div
+                        animate={{ opacity: [0.4, 1, 0.4] }}
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        className="absolute -top-1 -right-1 text-[#A84C2C]"
+                      >
+                        <Sparkles size={12} className="md:w-4 md:h-4" />
+                      </motion.div>
+                    </div>
+                    <p className="serif text-sm md:text-2xl font-light tracking-[0.2em] mt-2 md:mt-3">MAY</p>
+                  </div>
+
+                  <div className="pt-1">
+                    <p className="text-[7px] md:text-xs uppercase tracking-[0.4em] md:tracking-[0.5em] font-black text-sage/40">
+                      Twenty Twenty Six
+                    </p>
+                  </div>
                 </div>
-              }
-              back={
-                <>
-                  <Heart size={20} className="text-sage mb-2 md:mb-6 mx-auto opacity-70 md:w-8 md:h-8" />
-                  <p className="serif text-[14px] md:text-2xl italic text-sage mb-2 md:mb-4 leading-relaxed">Our wedding date</p>
-                  <p className="text-[8px] md:text-xs text-zinc-500 uppercase tracking-widest leading-loose">
-                    Saturday · 23 May 2026
-                  </p>
-                </>
-              }
-            />
+
+                <div className="absolute bottom-0 left-0 right-0 h-4 bg-paper clip-path-[polygon(0%_100%,_5%_80%,_10%_100%,_15%_80%,_20%_100%,_25%_80%,_30%_100%,_35%_80%,_40%_100%,_45%_80%,_50%_100%,_55%_80%,_60%_100%,_65%_80%,_70%_100%,_75%_80%,_80%_100%,_85%_80%,_90%_100%,_95%_80%,_100%_100%)] opacity-50" />
+              </div>
+            </div>
           </motion.div>
 
           <motion.div
@@ -1171,15 +1159,18 @@ export default function App() {
                 <div className="w-full h-full bg-[#F5EFE0] p-6 flex flex-col justify-center items-center text-center relative group overflow-hidden">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-sage/10 rounded-full blur-3xl pointer-events-none" />
                   <div className="relative z-10 space-y-3 md:space-y-6">
-                    <p className="serif italic text-lg md:text-2xl text-sage/60 group-hover:scale-110 transition-transform">Kindly</p>
+                    <div className="flex flex-col items-center gap-1">
+                      <p className="serif italic text-lg md:text-2xl text-umber group-hover:scale-110 transition-transform">Kindly</p>
+                      <h3 className="serif text-2xl md:text-4xl tracking-[0.3em] font-medium text-umber">RSVP</h3>
+                    </div>
                     <motion.div
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
                       className="group-hover:scale-110 transition-transform duration-500"
                     >
-                      <img src="/images/logo.png" alt="H&Z Logo" className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-contain drop-shadow-xl" />
+                      <img src="/images/logo.png" alt="Z&H Logo" className="w-[45vw] h-[45vw] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] object-contain drop-shadow-xl" />
                     </motion.div>
-                    <h3 className="serif text-2xl md:text-4xl tracking-[0.3em] font-medium text-sage">RSVP</h3>
+                    <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-zinc-400 font-bold mt-1">by 04.05.2026</p>
                   </div>
                 </div>
               }
@@ -1189,49 +1180,7 @@ export default function App() {
             />
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.4 }}
-            className="flex w-full h-full col-span-2 sm:col-span-1 items-center justify-center"
-          >
-            <FlipCard
-              containerClassName="w-full h-[220px] md:h-[350px] lg:h-[350px] flex items-center justify-center"
-              rounded="rounded-full"
-              className="w-36 h-36 md:w-56 md:h-56 shadow-2xl"
-              front={
-                <div className="w-full h-full relative group flex flex-col items-center justify-center bg-sage border-4 border-white/20 overflow-hidden">
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ repeat: Infinity, duration: 5 }}
-                    className="absolute w-full h-full bg-gradient-to-tr from-[#A84C2C]/40 via-transparent to-[#C9B99A]/20 blur-xl"
-                  />
-                  <div className="relative z-10 text-white space-y-2">
-                    <p className="serif italic text-[8px] md:text-sm opacity-80 mb-1">Curious?</p>
-                    <h3 className="serif text-xl md:text-5xl tracking-widest uppercase font-light">FAQS</h3>
-                    <motion.div
-                      animate={{ y: [0, -5, 0] }}
-                      transition={{ repeat: Infinity, duration: 3 }}
-                      className="mx-auto flex justify-center pt-2 md:pt-4"
-                    >
-                      <HelpCircle size={32} />
-                    </motion.div>
-                  </div>
-                  <div className="absolute inset-4 rounded-full border border-white/10 group-hover:border-white/30 transition-colors" />
-                </div>
-              }
-              back={
-                <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-paper">
-                  <HelpCircle size={28} className="text-sage mb-2 opacity-70" />
-                  <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold mb-2">Parking?</p>
-                  <p className="serif text-xs italic mb-4">Yes, free parking available.</p>
-                  <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold mb-2">Indoors?</p>
-                  <p className="serif text-xs italic">Partial outdoors.</p>
-                </div>
-              }
-            />
-          </motion.div>
+
 
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -1373,9 +1322,21 @@ export default function App() {
             <div className="h-px w-16 bg-current" />
           </div>
           <p className="serif italic text-zinc-500 text-xl max-w-lg mx-auto leading-relaxed">
-            "Love is not just something you feel, it's something you do."
+            "Love brought us together, made more beautiful with your presence"
           </p>
           <p className="serif text-sage/60 text-sm italic">We can't wait to celebrate with you</p>
+          
+          <div className="pt-8 opacity-40 hover:opacity-100 transition-opacity duration-500">
+            <a 
+              href="https://wa.me/94707819074" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-1"
+            >
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-sage">Develop & Design by</span>
+              <span className="serif text-xl md:text-2xl text-umber group-hover:scale-110 transition-transform">InviteMint</span>
+            </a>
+          </div>
         </motion.footer>
       </motion.main>
 
