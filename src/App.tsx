@@ -982,7 +982,7 @@ export default function App() {
                   </div>
 
                   {/* content */}
-                  <div className="relative z-10 px-4 pt-5 pb-4 sm:px-6 sm:pt-7 sm:pb-7 md:px-10 md:py-8 flex flex-col items-center text-center gap-0 sm:gap-2 md:gap-3">
+                  <div className="relative z-10 px-4 pt-4 pb-3 sm:px-6 sm:pt-7 sm:pb-7 md:px-10 md:py-8 flex flex-col items-center text-center gap-0 sm:gap-2 md:gap-3">
                     {/* top ornament */}
                     <div className="flex items-center gap-3 w-full max-w-[240px]">
                       <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/55" />
@@ -1001,9 +1001,9 @@ export default function App() {
                     <motion.div
                       animate={{ scale: [1, 1.04, 1] }}
                       transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                      className="-mb-3 sm:-mb-2 md:mb-0"
+                      className="-mb-6 sm:-mb-2 md:mb-0"
                     >
-                      <img src="/images/logo.png" alt="Z&H Logo" className="w-32 h-32 sm:w-36 sm:h-36 md:w-48 md:h-48 object-contain drop-shadow-md" />
+                      <img src="/images/logo.png" alt="Z&H Logo" className="w-28 h-28 sm:w-36 sm:h-36 md:w-48 md:h-48 object-contain drop-shadow-md" />
                     </motion.div>
 
                     {/* hosting families */}
@@ -1019,7 +1019,7 @@ export default function App() {
                       </p>
                     </div>
 
-                    <p className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-taupe/80 font-medium leading-relaxed max-w-[200px] md:max-w-xs">
+                    <p className="serif mb-2.5 sm:mb-0 text-[10px] sm:text-[11px] md:text-[14px] uppercase tracking-[0.2em] text-taupe/80 font-normal leading-relaxed max-w-[200px] md:max-w-xs">
                       REQUEST THE PLEASURE OF YOUR COMPANY TO CELEBRATE THE MARRIAGE OF THEIR CHILDREN
                     </p>
 
@@ -1047,7 +1047,7 @@ export default function App() {
                         <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-bold">
                           7:15 PM · 2026
                         </span>
-                        <span className="mt-1 block max-w-[200px] px-2 text-[7px] sm:text-[7px] md:text-[8px] uppercase tracking-[0.12em] text-taupe/75 text-center leading-snug break-words">
+                        <span className="serif mt-1 block max-w-[200px] px-2 text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.12em] text-umber/75 text-center leading-snug break-words font-medium">
                           GRAND BALLROOM, WATERS EDGE
                         </span>
                       </div>
@@ -1325,18 +1325,7 @@ export default function App() {
             "Love brought us together, made more beautiful with your presence"
           </p>
           <p className="serif text-sage/60 text-sm italic">We can't wait to celebrate with you</p>
-          
-          <div className="pt-8 opacity-40 hover:opacity-100 transition-opacity duration-500">
-            <a 
-              href="https://wa.me/94707819074" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group flex flex-col items-center gap-1"
-            >
-              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-sage">Develop & Design by</span>
-              <span className="serif text-xl md:text-2xl text-umber group-hover:scale-110 transition-transform">InviteMint</span>
-            </a>
-          </div>
+
         </motion.footer>
       </motion.main>
 
