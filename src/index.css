@@ -2,14 +2,7 @@
 @import "tailwindcss";
 
 /* =============================================
-   BOHO COLOR PALETTE
-   Ivory    #F5EFE0  — background / paper
-   Sand     #C9B99A  — light neutral accent
-   Taupe    #9C8470  — mid-tone text/borders
-   Terra    #C4714A  — primary accent (replaces sage)
-   Rust     #A84C2C  — deep accent / hover
-   Umber    #6B3D28  — dark rich tones
-   Sienna   #8B4513  — warm earthy accent
+   ELEGANT COLOR PALETTE
    ============================================= */
 
 @theme {
@@ -18,22 +11,27 @@
   --font-sans: "Inter", sans-serif;
 
   /* Primary accent — drives all `sage` classes */
-  --color-sage:   #C4714A;   /* Terracotta */
+  --color-sage: #D4AF37;
+  /* Gold */
 
   /* Background — drives all `paper` classes */
-  --color-paper:  #F5EFE0;   /* Ivory */
+  --color-paper: #FFFFFF;
+  /* White */
 
-  /* Extended boho palette */
-  --color-sand:   #C9B99A;
-  --color-taupe:  #9C8470;
-  --color-rust:   #A84C2C;
-  --color-umber:  #6B3D28;
-  --color-sienna: #8B4513;
+  /* Extended elegant palette */
+  --color-sand: #F7E7CE;
+  /* Champagne */
+  --color-taupe: #998375;
+  --color-rust: #c6ad99;
+  --color-umber: #c8b8ab;
+  --color-sienna: #daccc3;
+  --color-accent: #d7d4cf;
+  /* Added for completeness */
 }
 
 body {
   background-color: var(--color-paper);
-  color: #3D2B1F;
+  color: #000000;
   font-family: var(--font-sans);
 }
 

@@ -528,19 +528,22 @@ export default function App() {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.8, delay: 0.5 } }}
-            className="fixed inset-0 z-[100] bg-paper/95 backdrop-blur-md flex items-center justify-center p-6 overflow-hidden"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6 overflow-hidden"
           >
+            <div className="absolute inset-0 z-0 pointer-events-none">
+              <img src="/bg-chatgpt.png" alt="Background" className="w-full h-full object-cover" />
+            </div>
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
-              className="absolute top-12 md:top-24 left-0 right-0 text-center z-10 pointer-events-none"
+              className="absolute top-40 md:top-24 left-0 right-0 text-center z-10 pointer-events-none"
             >
-              <h1 className="serif text-4xl md:text-6xl text-sage/80 font-light tracking-[0.2em] drop-shadow-xl">
-                Zerlin & Hashimi
+              <h1 className="serif text-4xl md:text-6xl text-black/90 font-medium tracking-[0.2em] drop-shadow-xl">
+                Dewni & Nilanka
               </h1>
-              <p className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.6em] text-sage/60 font-bold">
-                23 May 2026
+              <p className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.6em] text-black/80 font-bold drop-shadow-md">
+                13 August 2026
               </p>
             </motion.div>
 
@@ -697,42 +700,7 @@ export default function App() {
               transition={!reduceEffects ? { duration: 4, repeat: Infinity, ease: "easeInOut" } : { duration: 0 }}
               className="relative w-full max-w-2xl h-80 md:h-[450px] rounded-[2.25rem] shadow-[0_34px_80px_-22px_rgba(0,0,0,0.55)] flex flex-col items-center justify-center z-10 overflow-hidden"
             >
-              {/* premium envelope material */}
-              <div className="absolute inset-0 bg-gradient-to-b from-sage via-sage/90 to-rust" />
-              <div className="absolute inset-0 opacity-25 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')] pointer-events-none" />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/16 via-transparent to-umber/25 pointer-events-none" />
-              <div className="absolute inset-[10px] rounded-[1.8rem] border border-white/18 pointer-events-none" />
-              <div className="absolute inset-[16px] rounded-[1.55rem] border border-umber/10 pointer-events-none" />
-              {!reduceEffects && (
-                <motion.div
-                  animate={{ opacity: [0.18, 0.32, 0.18], scale: [1, 1.04, 1] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-20 left-1/2 -translate-x-1/2 w-[520px] h-[260px] bg-paper/15 blur-3xl rounded-full pointer-events-none"
-                />
-              )}
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 md:space-y-6">
-                <span className="serif text-white/50 text-lg md:text-3xl tracking-[0.4em] md:tracking-[0.6em] uppercase text-center px-4">
-                  The Invitation
-                </span>
-                <div className="w-10 md:w-16 h-px bg-white/20" />
-              </div>
-
-              <div className="absolute bottom-0 left-0 right-0 h-[65%] bg-white/5 clip-path-envelope-bottom pointer-events-none rounded-b-[2rem]" />
-              <div className="absolute bottom-0 left-0 right-0 h-[65%] bg-gradient-to-t from-umber/35 via-umber/10 to-transparent clip-path-envelope-bottom pointer-events-none rounded-b-[2rem]" />
-
-              <motion.div
-                initial={{ rotateX: 0 }}
-                animate={{ rotateX: isFlapOpen ? 180 : 0, opacity: isFlapOpen ? 0 : 1 }}
-                transition={{ duration: 1, ease: [0.3, 0.1, 0.2, 1] }}
-                style={{ transformOrigin: "top", backfaceVisibility: "hidden" }}
-                className="absolute top-0 left-0 right-0 h-[55%] drop-shadow-2xl z-20 rounded-t-[2.25rem] clip-path-envelope flex flex-col items-center justify-start overflow-hidden pt-8 pointer-events-none"
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-sage to-rust" />
-                <div className="absolute inset-0 opacity-22 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')] pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/18 via-transparent to-umber/25" />
-                <div className="absolute top-0 left-0 right-0 h-px bg-white/25" />
-              </motion.div>
+              <img src="/envelope-bg.png" alt="Envelope" className="absolute inset-0 w-full h-full object-contain rounded-[2.25rem] pointer-events-none" />
 
               {!isFlapOpen && (
                 <motion.div
@@ -742,29 +710,7 @@ export default function App() {
                   className="absolute inset-0 z-30 flex flex-col items-center justify-center cursor-pointer"
                   onClick={handleOpen}
                 >
-                  <motion.div
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={!reduceEffects ? { repeat: Infinity, duration: 3, ease: "easeInOut" } : { duration: 0 }}
-                    className="flex flex-col items-center gap-4 mt-8 md:mt-12 group"
-                  >
-                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full shadow-[0_18px_50px_-18px_rgba(0,0,0,0.65)] flex items-center justify-center relative group-hover:scale-105 transition-transform duration-500 bg-paper/10 border border-white/30 p-1.5 backdrop-blur-md">
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/14 via-transparent to-umber/25 pointer-events-none" />
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-sage to-rust shadow-[inset_0_-8px_18px_rgba(0,0,0,0.28),0_8px_18px_rgba(0,0,0,0.22)] flex items-center justify-center border border-white/14 relative overflow-hidden">
-                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-20 h-12 bg-paper/25 blur-2xl rounded-full" />
-                        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.35)_0%,transparent_55%)]" />
-                        <Heart className="relative text-paper/90 w-10 h-10 md:w-14 md:h-14 drop-shadow-md mt-1" fill="currentColor" />
-                      </div>
-                    </div>
-
-                    <motion.div
-                      animate={!reduceEffects ? { y: [0, 5, 0] } : { y: 0 }}
-                      transition={!reduceEffects ? { repeat: Infinity, duration: 2, ease: "easeInOut" } : { duration: 0 }}
-                    >
-                      <p className="serif text-white/75 tracking-[0.32em] uppercase text-[10px] md:text-xs whitespace-nowrap">
-                        Tap to break seal
-                      </p>
-                    </motion.div>
-                  </motion.div>
+                  {/* The visual seal has been removed, but this wrapper remains clickable over the whole envelope */}
                 </motion.div>
               )}
             </motion.div>
@@ -802,7 +748,7 @@ export default function App() {
 
           <h1 className="flex flex-col items-center px-2">
             <span className="serif italic text-3xl sm:text-5xl md:text-[8rem] text-sage font-light leading-tight drop-shadow-sm mb-1 md:mb-6">
-              You're Invited!
+              KINDLY JOIN US
             </span>
             <span className="serif text-sm sm:text-base md:text-4xl text-umber tracking-[0.15em] md:tracking-[0.3em] uppercase font-light">
               to the wedding of
@@ -813,7 +759,7 @@ export default function App() {
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-32 bg-sage/5 blur-3xl rounded-full" />
 
             <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none">
-              Zerlin
+              Dewni
             </motion.h2>
 
             <div className="relative flex items-center justify-center shrink-0">
@@ -830,7 +776,7 @@ export default function App() {
             </div>
 
             <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none">
-              Hashimi
+              Nilanka
             </motion.h2>
           </div>
 
@@ -997,40 +943,32 @@ export default function App() {
                       <div className="flex-1 h-px bg-gradient-to-l from-transparent to-taupe/55" />
                     </div>
 
-                    {/* logo */}
-                    <motion.div
-                      animate={{ scale: [1, 1.04, 1] }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                      className="-mb-6 sm:-mb-2 md:mb-0"
-                    >
-                      <img src="/images/logo.png" alt="Z&H Logo" className="w-28 h-28 sm:w-36 sm:h-36 md:w-48 md:h-48 object-contain drop-shadow-md" />
-                    </motion.div>
 
                     {/* hosting families */}
                     <div className="space-y-0.5">
                       <p className="serif text-[9px] sm:text-[10px] md:text-[13px] uppercase tracking-[0.3em] text-umber font-normal leading-relaxed">
-                        MR. &amp; MRS. ZAKEER
+                        MR. &amp; MRS. WELGAMA
                       </p>
                       <p className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-medium">
-                        TOGETHER WITH
+                        TOGETHER WITH THEIR FAMILIES
                       </p>
                       <p className="serif text-[9px] sm:text-[10px] md:text-[13px] uppercase tracking-[0.3em] text-umber font-normal leading-relaxed">
-                        MR. &amp; MRS. ZAFIR ISMAIL
+                        MR. NIRMAL PREMARATHNE &amp; MRS. SUNETHRA WIJERATHNE
                       </p>
                     </div>
 
                     <p className="serif mb-2.5 sm:mb-0 text-[10px] sm:text-[11px] md:text-[14px] uppercase tracking-[0.2em] text-taupe/80 font-normal leading-relaxed max-w-[200px] md:max-w-xs">
-                      REQUEST THE PLEASURE OF YOUR COMPANY TO CELEBRATE THE MARRIAGE OF THEIR CHILDREN
+                      REQUEST THE HONOUR OF THE PRESENCE<br />TO SHARE THE JOY OF THE MARRIAGE OF THEIR CHILDREN
                     </p>
 
                     {/* couple names */}
                     <div className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-4 max-w-full px-2">
                       <span className="script text-[26px] sm:text-[32px] md:text-[48px] text-sage drop-shadow-sm leading-[1.1]">
-                        Zerlin
+                        Dewni
                       </span>
                       <span className="text-taupe/50 text-sm md:text-xl font-serif">&amp;</span>
                       <span className="script text-[26px] sm:text-[32px] md:text-[48px] text-sage drop-shadow-sm leading-[1.1]">
-                        Hashimi
+                        Nilanka
                       </span>
                     </div>
 
@@ -1039,16 +977,16 @@ export default function App() {
                       <div className="h-px flex-1 bg-sand/45" />
                       <div className="flex flex-col items-center gap-0.5">
                         <span className="serif text-[22px] sm:text-[28px] md:text-4xl text-umber font-medium leading-none">
-                          23
+                          13
                         </span>
                         <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-taupe font-bold">
-                          MAY · SATURDAY
+                          AUGUST · THURSDAY
                         </span>
                         <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-bold">
-                          7:15 PM · 2026
+                          9:00 AM ONWARDS · 2026
                         </span>
                         <span className="serif mt-1 block max-w-[200px] px-2 text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.12em] text-umber/75 text-center leading-snug break-words font-medium">
-                          GRAND BALLROOM, WATERS EDGE
+                          SEETHAWAKA REGENCY AWISSAWELLA
                         </span>
                       </div>
                       <div className="h-px flex-1 bg-sand/45" />
@@ -1120,9 +1058,9 @@ export default function App() {
                   </div>
 
                   <div className="flex flex-col items-center">
-                    <p className="text-[8px] md:text-xs uppercase tracking-[0.4em] text-zinc-400 font-black mb-1 md:mb-2">Saturday</p>
+                    <p className="text-[8px] md:text-xs uppercase tracking-[0.4em] text-zinc-400 font-black mb-1 md:mb-2">Thursday</p>
                     <div className="relative inline-block px-6 md:px-8 py-1 md:py-2 border-y border-sage/30">
-                      <p className="serif text-5xl md:text-8xl font-medium text-sage leading-none">23</p>
+                      <p className="serif text-5xl md:text-8xl font-medium text-sage leading-none">13</p>
                       <motion.div
                         animate={{ opacity: [0.4, 1, 0.4] }}
                         transition={{ repeat: Infinity, duration: 2 }}
@@ -1131,7 +1069,7 @@ export default function App() {
                         <Sparkles size={12} className="md:w-4 md:h-4" />
                       </motion.div>
                     </div>
-                    <p className="serif text-sm md:text-2xl font-light tracking-[0.2em] mt-2 md:mt-3">MAY</p>
+                    <p className="serif text-sm md:text-2xl font-light tracking-[0.2em] mt-2 md:mt-3">AUGUST</p>
                   </div>
 
                   <div className="pt-1">
@@ -1160,17 +1098,14 @@ export default function App() {
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-sage/10 rounded-full blur-3xl pointer-events-none" />
                   <div className="relative z-10 space-y-3 md:space-y-6">
                     <div className="flex flex-col items-center gap-1">
-                      <p className="serif italic text-lg md:text-2xl text-umber group-hover:scale-110 transition-transform">Kindly</p>
-                      <h3 className="serif text-2xl md:text-4xl tracking-[0.3em] font-medium text-umber">RSVP</h3>
+                      <p className="serif italic text-lg md:text-2xl text-umber group-hover:scale-110 transition-transform">Kindly respond with</p>
+                      <h3 className="serif text-2xl md:text-4xl tracking-[0.3em] font-medium text-umber">REGRETS ONLY</h3>
                     </div>
-                    <motion.div
-                      animate={{ scale: [1, 1.05, 1] }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                      className="group-hover:scale-110 transition-transform duration-500"
-                    >
-                      <img src="/images/logo.png" alt="Z&H Logo" className="w-[45vw] h-[45vw] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] object-contain drop-shadow-xl" />
-                    </motion.div>
-                    <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-zinc-400 font-bold mt-1">by 04.05.2026</p>
+
+                    <div className="text-[10px] md:text-xs tracking-[0.1em] text-zinc-500 font-bold mt-1 space-y-1">
+                      <p>Mr. Welgama: 072 34 22 445</p>
+                      <p>Mrs. Wijerathne: 077 50 62 057</p>
+                    </div>
                   </div>
                 </div>
               }
@@ -1194,7 +1129,7 @@ export default function App() {
               front={
                 <div className="w-full h-full relative group">
                   <img
-                    src="https://www.watersedge.lk/wp-content/uploads/2026/01/004A2024-1024x1536.jpg"
+                    src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/748802595.jpg?k=49aeb64e3bc34f1ad1b06b3a2f9ba42d730d11a1aee77a6b4217ed3a74b63eff&o="
                     alt="Waters Edge Grand Ballroom"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     referrerPolicy="no-referrer"
@@ -1206,16 +1141,16 @@ export default function App() {
                       The Location
                     </p>
                     <h3 className="serif text-2xl md:text-5xl text-sage leading-tight drop-shadow-sm font-medium">
-                      Waters Edge
+                      Seethawaka
                       <br />
-                      Grand Ballroom
+                      Regency
                     </h3>
 
                     <motion.button
                       data-no-flip
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => window.open("https://maps.app.goo.gl/3EQ7xzj3EX9T2xEx6", "_blank")}
+                      onClick={() => window.open("https://maps.app.goo.gl/z6cc6t5wNV8yrtMP9", "_blank")}
                       className="mt-3 md:mt-5 px-5 py-2 md:px-7 md:py-3 bg-sage text-white rounded-full text-[9px] md:text-xs font-bold uppercase tracking-widest hover:bg-zinc-800 transition-colors"
                     >
                       View Map
@@ -1224,23 +1159,23 @@ export default function App() {
 
                   <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-sage flex items-center gap-3 bg-white/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/60 shadow-lg">
                     <MapPin className="text-sage animate-bounce" size={16} />
-                    <p className="serif text-[10px] md:text-sm tracking-[0.2em] font-bold uppercase">Waters Edge</p>
+                    <p className="serif text-[10px] md:text-sm tracking-[0.2em] font-bold uppercase">Awissawella</p>
                   </div>
                 </div>
               }
               back={
                 <>
                   <MapPin size={24} className="text-sage mb-4 md:mb-6 opacity-70 md:w-9 md:h-9" />
-                  <h4 className="serif text-2xl md:text-4xl text-sage mb-2 md:mb-4">Waters Edge Grand Ballroom</h4>
+                  <h4 className="serif text-2xl md:text-4xl text-sage mb-2 md:mb-4">Seethawaka Regency</h4>
                   <p className="text-[10px] md:text-sm text-zinc-500 uppercase tracking-widest leading-loose mb-4 md:mb-6">
-                    Waters Edge
+                    Seethawaka Regency
                     <br />
-                    Grand Ballroom
+                    Awissawella
                   </p>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => window.open("https://maps.app.goo.gl/3EQ7xzj3EX9T2xEx6", "_blank")}
+                    onClick={() => window.open("https://maps.app.goo.gl/z6cc6t5wNV8yrtMP9", "_blank")}
                     className="px-6 py-2 md:px-8 md:py-3 bg-sage text-white rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-zinc-800 transition-colors"
                   >
                     View Map
@@ -1294,13 +1229,13 @@ export default function App() {
 
                   <div className="w-full max-w-sm space-y-4 md:space-y-6 text-left">
                     <div className="flex items-start gap-2 md:gap-4">
-                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">7:45 PM</span>
+                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">9:00 AM</span>
                       <div className="w-px h-full bg-sage/30 relative mt-2 -ml-[1px] md:-ml-2 shrink-0">
                         <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-sage" />
                       </div>
                       <div>
-                        <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider">Nikkah Ceremony</p>
-                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Followed by Dinner</p>
+                        <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider">Welcome & Poruwa Ceremony</p>
+                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Poruwa at 9:53 AM</p>
                       </div>
                     </div>
                   </div>
