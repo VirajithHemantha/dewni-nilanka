@@ -17,6 +17,11 @@ import {
   Volume2,
   VolumeX,
   Sparkles,
+  Send,
+  Mail,
+  User,
+  Users,
+  Coffee,
 } from "lucide-react";
 
 // FlipCard Component with 3D Tilt Effect + Premium Mobile Tap Hint
@@ -212,221 +217,246 @@ type GuestEntry = {
 function RSVPForm() {
   const endpoint = (import.meta as any).env?.VITE_RSVP_ENDPOINT as string | undefined;
 
-  const [attendance, setAttendance] = useState<Attendance>("yes");
-  const [partyType, setPartyType] = useState<PartyType>("individual");
-  const [guestCount, setGuestCount] = useState<number>(1);
-  const [guests, setGuests] = useState<GuestEntry[]>([{ name: "", meal: "non-veg" }]);
+  const [formData, setFormData] = useState({
+    name: '',
+    guests: '1',
+    dietary: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [isHoveringSubmit, setIsHoveringSubmit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const [submitting, setSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const isAttending = attendance === "yes";
-  const effectiveGuestCount = partyType === "family" ? Math.max(2, guestCount) : 1;
-
-  useEffect(() => {
-    if (partyType === "individual") {
-      setGuestCount(1);
-      setGuests((prev) => [prev[0] ?? { name: "", meal: "non-veg" }]);
-      return;
-    }
-
-    setGuestCount((c) => (c < 2 ? 2 : c));
-  }, [partyType]);
-
-  useEffect(() => {
-    const desiredCount = partyType === "family" ? Math.max(2, guestCount) : 1;
-    setGuests((prev) => {
-      if (prev.length === desiredCount) return prev;
-      const next = prev.slice(0, desiredCount);
-      while (next.length < desiredCount) next.push({ name: "", meal: "non-veg" });
-      return next;
-    });
-  }, [guestCount, partyType]);
-
-  function updateGuest(index: number, patch: Partial<GuestEntry>) {
-    setGuests((prev) => prev.map((g, i) => (i === index ? { ...g, ...patch } : g)));
-  }
-
-  function validate(): string | null {
-    const primaryName = guests[0]?.name?.trim();
-    if (!primaryName) return "Please enter your name.";
-    if (attendance === "no") return null;
-
-    const missingName = guests.some((g) => !g.name.trim());
-    if (missingName) return "Please enter all guest names.";
-
-    return null;
-  }
-
-  async function submit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSuccessMessage(null);
-    setErrorMessage(null);
-
-    const validationError = validate();
-    if (validationError) {
-      setErrorMessage(validationError);
-      return;
-    }
+    setSubmitError('');
+    setIsSubmitting(true);
 
     if (!endpoint) {
-      setErrorMessage("RSVP saving is not configured yet (missing VITE_RSVP_ENDPOINT).");
+      setSubmitError("RSVP saving is not configured yet.");
+      setIsSubmitting(false);
       return;
     }
 
-    const payload = {
-      attendance,
-      partyType,
-      guestCount: isAttending ? effectiveGuestCount : 0,
-      guests: isAttending ? guests : [guests[0]],
-      submittedAt: new Date().toISOString(),
-    };
-
-    setSubmitting(true);
     try {
-      // Try JSON request first (works if endpoint supports CORS).
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      setSuccessMessage("RSVP saved. Thank you!");
-    } catch {
+      const payload = {
+        name: formData.name,
+        guests: formData.guests,
+        dietary: formData.dietary,
+        submittedAt: new Date().toISOString(),
+      };
+
       try {
-        // Fallback for Apps Script deployments without CORS.
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+      } catch {
         const fd = new FormData();
         fd.append("payload", JSON.stringify(payload));
         await fetch(endpoint, { method: "POST", mode: "no-cors", body: fd });
-        setSuccessMessage("RSVP submitted. Thank you!");
-      } catch {
-        setErrorMessage("Could not submit RSVP. Please try again.");
       }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', guests: '1', dietary: '' });
+      }, 4000);
+    } catch (error) {
+      setSubmitError('Unable to submit right now. Please try again.');
     } finally {
-      setSubmitting(false);
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <div data-no-flip className="w-full cursor-auto">
-      <CheckCircle2 size={24} className="text-sage mb-2 md:mb-4 mx-auto opacity-70 md:w-8 md:h-8" />
-      <h4 className="serif text-2xl md:text-3xl text-sage mb-2 md:mb-3 text-center">RSVP</h4>
-      <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-widest mb-4 md:mb-6 text-center leading-relaxed">
-        Please let us know by
-        <br />
-        04.05.2026
-      </p>
+    <section className="relative overflow-hidden bg-[#F5EFE0] px-4 sm:px-6 lg:px-8 py-24 md:py-32 w-full mt-12 md:mt-24 rounded-[3rem] shadow-xl border border-sage/20">
+      <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]" />
 
-      <form onSubmit={submit} className="space-y-4 md:space-y-4 px-1 md:px-2">
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            data-no-flip
-            onClick={() => setAttendance("yes")}
-            className={`py-3 md:py-2.5 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${attendance === "yes" ? "bg-sage text-white border-sage" : "bg-white/40 text-sage border-sage/30"
-              }`}
-          >
-            Attending
-          </button>
-          <button
-            type="button"
-            data-no-flip
-            onClick={() => setAttendance("no")}
-            className={`py-3 md:py-2.5 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${attendance === "no" ? "bg-zinc-800 text-white border-zinc-800" : "bg-white/40 text-zinc-700 border-zinc-300/60"
-              }`}
-          >
-            Not Attending
-          </button>
-        </div>
-
-        <div className={`grid grid-cols-2 gap-2 ${!isAttending ? "opacity-60 pointer-events-none" : ""}`}>
-          <button
-            type="button"
-            data-no-flip
-            onClick={() => setPartyType("individual")}
-            className={`py-3 md:py-2 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${partyType === "individual" ? "bg-sage/90 text-white border-sage" : "bg-white/40 text-sage border-sage/30"
-              }`}
-          >
-            Individual
-          </button>
-          <button
-            type="button"
-            data-no-flip
-            onClick={() => setPartyType("family")}
-            className={`py-3 md:py-2 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold border transition-colors ${partyType === "family" ? "bg-sage/90 text-white border-sage" : "bg-white/40 text-sage border-sage/30"
-              }`}
-          >
-            Family
-          </button>
-        </div>
-
-        {isAttending && partyType === "family" && (
-          <div className="flex items-center justify-between gap-3">
-            <label className="text-[10px] md:text-xs uppercase tracking-widest font-bold text-zinc-600">Family Count</label>
-            <input
-              data-no-flip
-              type="number"
-              min={2}
-              max={12}
-              value={effectiveGuestCount}
-              onChange={(ev) => setGuestCount(Number(ev.target.value || 2))}
-              className="w-28 rounded-xl border border-sage/20 bg-white/60 px-3 py-2.5 text-xs text-zinc-700 outline-none"
-            />
-          </div>
-        )}
-
-        <div className="space-y-2">
-          {(isAttending ? guests : [guests[0]]).map((guest, idx) => (
-            <div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr_140px] gap-2">
-              <input
-                data-no-flip
-                value={guest?.name ?? ""}
-                onChange={(ev) => updateGuest(idx, { name: ev.target.value })}
-                placeholder={
-                  isAttending
-                    ? partyType === "family"
-                      ? `Guest ${idx + 1} name`
-                      : "Your name"
-                    : "Your name"
-                }
-                className="w-full rounded-xl border border-sage/20 bg-white/60 px-3 py-2.5 text-xs text-zinc-700 outline-none"
-              />
-
-              <select
-                data-no-flip
-                disabled={!isAttending}
-                value={guest?.meal ?? "non-veg"}
-                onChange={(ev) => updateGuest(idx, { meal: ev.target.value as MealPreference })}
-                className={`w-full rounded-xl border border-sage/20 bg-white/60 px-3 py-2.5 text-xs text-zinc-700 outline-none ${!isAttending ? "opacity-60" : ""
-                  }`}
-              >
-                <option value="veg">Veg</option>
-                <option value="non-veg">Non-Veg</option>
-              </select>
-            </div>
-          ))}
-        </div>
-
-        {errorMessage && <p className="text-[10px] md:text-xs text-red-700 font-semibold">{errorMessage}</p>}
-        {successMessage && <p className="text-[10px] md:text-xs text-sage font-bold">{successMessage}</p>}
-
-        <button
-          type="submit"
-          data-no-flip
-          disabled={submitting}
-          className="w-full bg-sage text-white py-3 md:py-3 rounded-xl text-[10px] md:text-xs uppercase tracking-widest font-bold disabled:opacity-60"
+      <div className="relative z-10 mx-auto max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, type: "spring", stiffness: 100 }}
+          className="text-center mb-16 relative"
         >
-          {submitting ? "Submitting..." : "Submit RSVP"}
-        </button>
+          <motion.div
+            whileHover={{ scale: 1.08, rotate: -5 }}
+            transition={{ type: "spring", bounce: 0.6 }}
+            className="relative mx-auto mb-8 w-32 h-32 md:w-44 md:h-44 rounded-full border-8 border-white bg-white shadow-[0_20px_42px_rgba(212,175,55,0.15)] p-[2px] z-10 block"
+          >
+            <div className="relative flex h-full w-full items-center justify-center rounded-full bg-sage/10">
+              <Mail className="h-12 w-12 text-sage" />
+            </div>
 
-        {!endpoint && (
-          <p className="text-[10px] md:text-[10px] text-zinc-500 leading-relaxed">
-            Admin setup needed: set <span className="font-bold">VITE_RSVP_ENDPOINT</span> to your Google Apps Script URL.
+            <Sparkles className="absolute -top-2 -right-4 h-8 w-8 text-sage/70 animate-pulse" />
+            <Sparkles className="absolute -bottom-4 -left-2 h-6 w-6 text-sage/50 animate-pulse" />
+          </motion.div>
+          
+          <motion.div
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-sage/40 bg-white/70 px-5 py-2.5 shadow-sm backdrop-blur-md"
+          >
+            <Mail className="h-5 w-5 text-sage" />
+            <span className="text-sm font-bold uppercase tracking-[0.2em] text-sage">
+              Join the Celebration
+            </span>
+          </motion.div>
+
+          <h2 className="serif text-5xl font-medium tracking-tight text-umber md:text-7xl">
+            You are <span className="relative inline-block text-sage">Invited</span>
+          </h2>
+          <p className="mx-auto mt-8 max-w-lg text-lg text-umber/80 leading-relaxed font-medium">
+            Please respond by August 1, 2026. We would be honored to have you join our wedding celebration.
           </p>
-        )}
-      </form>
-    </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 50, rotateX: 10 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.2, type: "spring", bounce: 0.4 }}
+          className="relative perspective-[1000px]"
+        >
+          <div className="relative overflow-hidden rounded-[3rem] border border-sage/30 bg-white/60 p-6 md:p-12 shadow-lg backdrop-blur-xl">
+            <AnimatePresence mode="wait">
+              {!submitted ? (
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  onSubmit={handleSubmit}
+                  className="relative z-10 space-y-8"
+                >
+                  <div className="grid grid-cols-1 gap-8">
+                    <div className="group relative">
+                      <label className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-sage">
+                        <User className="h-4 w-4" /> Full Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        placeholder="John & Jane Doe"
+                        className="w-full rounded-2xl border border-sage/20 bg-white/65 px-5 py-4 text-umber placeholder-umber/40 outline-none transition-all duration-300 focus:border-sage focus:bg-white focus:shadow-md group-hover:bg-white/90"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="group relative">
+                      <label className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-sage">
+                        <Users className="h-4 w-4" /> Guests
+                      </label>
+                      <div className="relative">
+                        <select
+                          name="guests"
+                          value={formData.guests}
+                          onChange={handleChange}
+                          className="w-full appearance-none rounded-2xl border border-sage/20 bg-white/65 px-5 py-4 pr-12 text-umber outline-none transition-all duration-300 focus:border-sage focus:bg-white focus:shadow-md group-hover:bg-white/90 cursor-pointer"
+                        >
+                          <option value="1">1 Guest (Just Me)</option>
+                          <option value="2">2 Guests (Couple)</option>
+                          <option value="3">3 Guests (Plus One)</option>
+                          <option value="4">4 Guests (Family)</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-5 flex items-center text-sage">
+                          <svg className="h-5 w-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="group relative">
+                      <label className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-sage">
+                        <Coffee className="h-4 w-4" /> Dietary Notes
+                      </label>
+                      <input
+                        type="text"
+                        name="dietary"
+                        value={formData.dietary}
+                        onChange={handleChange}
+                        placeholder="Allergies, Vegan, etc."
+                        className="w-full rounded-2xl border border-sage/20 bg-white/65 px-5 py-4 text-umber placeholder-umber/40 outline-none transition-all duration-300 focus:border-sage focus:bg-white focus:shadow-md group-hover:bg-white/90"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-10 flex justify-center pt-6">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onHoverStart={() => setIsHoveringSubmit(true)}
+                      onHoverEnd={() => setIsHoveringSubmit(false)}
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="group relative inline-flex items-center justify-center gap-4 overflow-hidden rounded-full bg-sage px-12 py-5 text-white shadow-lg transition-all hover:bg-[#b0912f] border border-sage hover:border-[#b0912f]"
+                    >
+                      <span className="relative z-10 font-bold tracking-[0.2em] uppercase text-sm">
+                        {isSubmitting ? 'Sending...' : 'Send RSVP'}
+                      </span>
+
+                      <motion.div
+                        animate={isHoveringSubmit ? { x: [0, 5, 0] } : {}}
+                        transition={{ duration: 0.5, repeat: Infinity, ease: "easeInOut" }}
+                        className="relative z-10"
+                      >
+                        <Send className="h-5 w-5" />
+                      </motion.div>
+                    </motion.button>
+                  </div>
+
+                  {submitError && (
+                    <p className="text-center text-sm font-medium text-red-600">{submitError}</p>
+                  )}
+                  {!endpoint && (
+                    <p className="text-center text-[10px] text-zinc-500 leading-relaxed mt-2">
+                      Admin setup needed: set VITE_RSVP_ENDPOINT to your Google Apps Script URL.
+                    </p>
+                  )}
+                </motion.form>
+              ) : (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: -20 }}
+                  transition={{ type: "spring", bounce: 0.5 }}
+                  className="relative z-10 flex flex-col items-center justify-center py-16 text-center"
+                >
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-lg"
+                  >
+                    <Heart className="h-12 w-12 text-sage fill-sage/20" />
+                  </motion.div>
+                  <h3 className="serif text-4xl font-medium text-umber mb-4">
+                    Yay! We got it
+                  </h3>
+                  <p className="max-w-md text-lg text-umber/80 font-medium">
+                    Thank you so much for confirming, {formData.name || 'dear guest'}! We are so excited to celebrate with you.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -539,10 +569,10 @@ export default function App() {
               transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
               className="absolute top-40 md:top-24 left-0 right-0 text-center z-10 pointer-events-none"
             >
-              <h1 className="serif text-4xl md:text-6xl text-black/90 font-medium tracking-[0.2em] drop-shadow-xl">
+              <h1 className="serif text-4xl md:text-6xl text-[#c79957] font-medium tracking-[0.2em] drop-shadow-xl">
                 Dewni & Nilanka
               </h1>
-              <p className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.6em] text-black/80 font-bold drop-shadow-md">
+              <p className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.6em] text-[#c79957]/90 font-bold drop-shadow-md">
                 13 August 2026
               </p>
             </motion.div>
@@ -928,78 +958,69 @@ export default function App() {
                   </div>
 
                   {/* content */}
-                  <div className="relative z-10 px-4 pt-4 pb-3 sm:px-6 sm:pt-7 sm:pb-7 md:px-10 md:py-8 flex flex-col items-center text-center gap-0 sm:gap-2 md:gap-3">
+                  <div className="relative z-10 px-4 pt-6 pb-4 md:px-8 md:py-8 flex flex-col items-center text-center gap-3">
+                    
                     {/* top ornament */}
-                    <div className="flex items-center gap-3 w-full max-w-[240px]">
-                      <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/55" />
-                      <motion.div
-                        animate={{ rotate: [0, 10, -10, 0] }}
-                        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                      >
-                        <svg viewBox="0 0 16 16" className="w-3 h-3 opacity-50 text-sage" fill="currentColor">
-                          <path d="M8 0 L9.5 6.5 L16 8 L9.5 9.5 L8 16 L6.5 9.5 L0 8 L6.5 6.5 Z" />
-                        </svg>
-                      </motion.div>
-                      <div className="flex-1 h-px bg-gradient-to-l from-transparent to-taupe/55" />
+                    <div className="flex items-center gap-3 w-full max-w-[200px]">
+                      <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/40" />
+                      <Sparkles className="w-3 h-3 text-sage opacity-60" />
+                      <div className="flex-1 h-px bg-gradient-to-l from-transparent to-taupe/40" />
                     </div>
-
-
-                    {/* hosting families */}
-                    <div className="space-y-0.5">
-                      <p className="serif text-[9px] sm:text-[10px] md:text-[13px] uppercase tracking-[0.3em] text-umber font-normal leading-relaxed">
-                        MR. &amp; MRS. WELGAMA
-                      </p>
-                      <p className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-medium">
-                        TOGETHER WITH THEIR FAMILIES
-                      </p>
-                      <p className="serif text-[9px] sm:text-[10px] md:text-[13px] uppercase tracking-[0.3em] text-umber font-normal leading-relaxed">
-                        MR. NIRMAL PREMARATHNE &amp; MRS. SUNETHRA WIJERATHNE
-                      </p>
-                    </div>
-
-                    <p className="serif mb-2.5 sm:mb-0 text-[10px] sm:text-[11px] md:text-[14px] uppercase tracking-[0.2em] text-taupe/80 font-normal leading-relaxed max-w-[200px] md:max-w-xs">
-                      REQUEST THE HONOUR OF THE PRESENCE<br />TO SHARE THE JOY OF THE MARRIAGE OF THEIR CHILDREN
-                    </p>
 
                     {/* couple names */}
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-4 max-w-full px-2">
-                      <span className="script text-[26px] sm:text-[32px] md:text-[48px] text-sage drop-shadow-sm leading-[1.1]">
+                    <div className="flex flex-col items-center justify-center mt-2 mb-1">
+                      <span className="script text-[36px] md:text-[52px] text-sage drop-shadow-sm leading-none">
                         Dewni
                       </span>
-                      <span className="text-taupe/50 text-sm md:text-xl font-serif">&amp;</span>
-                      <span className="script text-[26px] sm:text-[32px] md:text-[48px] text-sage drop-shadow-sm leading-[1.1]">
+                      <span className="text-taupe/40 text-sm md:text-base font-serif italic my-1">&amp;</span>
+                      <span className="script text-[36px] md:text-[52px] text-sage drop-shadow-sm leading-none">
                         Nilanka
                       </span>
                     </div>
 
+                    <p className="text-[7px] md:text-[9px] uppercase tracking-[0.3em] text-taupe font-medium max-w-[240px] leading-relaxed">
+                      TOGETHER WITH THEIR FAMILIES, INVITE YOU TO CELEBRATE THEIR MARRIAGE
+                    </p>
+
                     {/* date / time / venue */}
-                    <div className="flex items-center gap-2 sm:gap-3 text-umber/70 w-full mt-1">
-                      <div className="h-px flex-1 bg-sand/45" />
-                      <div className="flex flex-col items-center gap-0.5">
-                        <span className="serif text-[22px] sm:text-[28px] md:text-4xl text-umber font-medium leading-none">
+                    <div className="flex items-center justify-center gap-4 w-full mt-2">
+                      <div className="flex-1 h-[1px] bg-taupe/20" />
+                      <div className="flex flex-col items-center">
+                        <span className="serif text-[18px] md:text-[24px] text-umber font-semibold leading-none">
                           13
                         </span>
-                        <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-taupe font-bold">
-                          AUGUST · THURSDAY
-                        </span>
-                        <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-taupe font-bold">
-                          9:00 AM ONWARDS · 2026
-                        </span>
-                        <span className="serif mt-1 block max-w-[200px] px-2 text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.12em] text-umber/75 text-center leading-snug break-words font-medium">
-                          SEETHAWAKA REGENCY AWISSAWELLA
+                        <span className="text-[7px] md:text-[8px] uppercase tracking-[0.2em] text-taupe font-bold mt-1">
+                          AUGUST
                         </span>
                       </div>
-                      <div className="h-px flex-1 bg-sand/45" />
+                      <div className="w-[1px] h-8 bg-taupe/20" />
+                      <div className="flex flex-col items-center">
+                        <span className="serif text-[18px] md:text-[24px] text-umber font-semibold leading-none">
+                          2026
+                        </span>
+                        <span className="text-[7px] md:text-[8px] uppercase tracking-[0.2em] text-taupe font-bold mt-1">
+                          THURSDAY
+                        </span>
+                      </div>
+                      <div className="flex-1 h-[1px] bg-taupe/20" />
+                    </div>
+
+                    <div className="flex flex-col items-center gap-1 mt-1 mb-2">
+                      <span className="text-[7px] md:text-[9px] uppercase tracking-[0.2em] text-taupe font-bold">
+                        9:00 AM ONWARDS
+                      </span>
+                      <span className="serif text-[9px] md:text-[11px] uppercase tracking-[0.15em] text-umber/90 font-bold">
+                        SEETHAWAKA REGENCY, AWISSAWELLA
+                      </span>
                     </div>
 
                     {/* bottom ornament */}
-                    <div className="flex items-center gap-3 w-full max-w-[240px]">
-                      <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/55" />
-                      <svg viewBox="0 0 16 16" className="w-3 h-3 opacity-40 text-sage" fill="currentColor">
-                        <path d="M8 0 L9.5 6.5 L16 8 L9.5 9.5 L8 16 L6.5 9.5 L0 8 L6.5 6.5 Z" />
-                      </svg>
-                      <div className="flex-1 h-px bg-gradient-to-l from-transparent to-taupe/55" />
+                    <div className="flex items-center gap-3 w-full max-w-[200px]">
+                      <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/40" />
+                      <Sparkles className="w-3 h-3 text-sage opacity-60" />
+                      <div className="flex-1 h-px bg-gradient-to-l from-transparent to-taupe/40" />
                     </div>
+
                   </div>
                 </div>
               </motion.div>
@@ -1039,6 +1060,73 @@ export default function App() {
           )}
         </div>
 
+        {/* New Blessed Union Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="w-full flex justify-center relative perspective-[1000px] mb-12 md:mb-24 z-20"
+        >
+          <motion.div
+            whileHover={{ scale: 1.02, rotateY: 5 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="relative h-[420px] sm:h-[520px] md:h-[600px] w-full max-w-[420px] overflow-hidden rounded-[30px] md:rounded-t-[200px] md:rounded-b-[30px] border border-sage/60 shadow-[0_20px_50px_rgba(212,175,55,0.2)] bg-[#F5EFE0]"
+          >
+            <div className="absolute -inset-6 rounded-t-[220px] rounded-b-[40px] border border-sage/20 hidden md:block" />
+            <div className="absolute -inset-3 rounded-t-[210px] rounded-b-[35px] border border-sage/40 hidden md:block" />
+
+            <img
+              src="/WhatsApp Image 2026-06-25 at 18.41.50.jpeg"
+              alt="Dewni and Nilanka"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-b from-[#F5EFE0]/10 via-[#F5EFE0]/60 to-[#F5EFE0]/95" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.1),transparent_48%)]" />
+            <div className="absolute inset-0 opacity-10"
+              style={{ backgroundImage: 'linear-gradient(rgba(212,175,55,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.55) 1px, transparent 1px)', backgroundSize: '38px 38px' }} />
+
+            <div className="relative z-10 flex h-full flex-col items-center justify-end pb-12 px-8 text-center text-[#1a0f0a]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1a0f0a]/20 bg-white/50 px-4 py-1.5 backdrop-blur-sm">
+                <Sparkles className="h-3.5 w-3.5 text-[#1a0f0a]" />
+                <p className="text-[10px] uppercase tracking-[0.32em] text-[#1a0f0a] drop-shadow-sm font-bold">Blessed Union</p>
+              </div>
+              <h3 className="mt-5 serif text-4xl text-[#1a0f0a] drop-shadow-md font-bold">
+                Dewni <span className="text-[#1a0f0a]">&amp;</span> Nilanka
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-[#1a0f0a] font-bold max-w-[280px]">
+                "Love is patient, love is kind." Join us as we exchange vows in faith, gratitude, and joy.
+              </p>
+              <div className="mt-8 h-px w-28 bg-[#1a0f0a]/40" />
+              <p className="mt-5 text-xs uppercase tracking-[0.28em] text-[#1a0f0a] font-black">13 August 2026</p>
+            </div>
+
+            <motion.div
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -right-2 sm:-right-6 md:-right-10 top-20 md:top-40 flex h-24 w-24 md:h-28 md:w-28 items-center justify-center rounded-full border border-sage/40 bg-white/90 shadow-[0_0_30px_rgba(212,175,55,0.3)] backdrop-blur-md"
+            >
+              <div className="text-center">
+                <Heart className="mx-auto h-6 w-6 md:h-8 md:w-8 text-sage fill-sage/20" />
+                <span className="mt-2 block text-[10px] font-medium uppercase tracking-[0.25em] text-umber">Forever</span>
+              </div>
+            </motion.div>
+
+            {/* Sparkle effects */}
+            <motion.div
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="absolute left-10 top-20 h-3 w-3 rounded-full bg-sage blur-[2px]"
+            />
+            <motion.div
+              animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.8, 0.3] }}
+              transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+              className="absolute right-20 bottom-32 h-4 w-4 rounded-full bg-sage blur-[2px]"
+            />
+          </motion.div>
+        </motion.div>
+
         {/* Bento Grid Layout - Flipped Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-10 relative">
           <motion.div
@@ -1046,7 +1134,7 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full h-full col-span-2 lg:col-span-2"
+            className="w-full h-full col-span-2 lg:col-span-4"
           >
             <div className="w-full h-[220px] md:h-[350px] lg:h-[350px] relative overflow-hidden rounded-[2rem] shadow-2xl border border-white/40 ring-1 ring-black/5">
               <div className="w-full h-full bg-[#F5EFE0] p-2 md:p-8 flex flex-col items-center justify-center text-center space-y-2 md:space-y-4 relative group">
@@ -1084,36 +1172,7 @@ export default function App() {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="w-full h-full col-span-2 lg:col-span-2"
-          >
-            <FlipCard
-              containerClassName="w-full h-[380px] md:h-[350px] lg:h-[350px]"
-              front={
-                <div className="w-full h-full bg-[#F5EFE0] p-6 flex flex-col justify-center items-center text-center relative group overflow-hidden">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-sage/10 rounded-full blur-3xl pointer-events-none" />
-                  <div className="relative z-10 space-y-3 md:space-y-6">
-                    <div className="flex flex-col items-center gap-1">
-                      <p className="serif italic text-lg md:text-2xl text-umber group-hover:scale-110 transition-transform">Kindly respond with</p>
-                      <h3 className="serif text-2xl md:text-4xl tracking-[0.3em] font-medium text-umber">REGRETS ONLY</h3>
-                    </div>
 
-                    <div className="text-[10px] md:text-xs tracking-[0.1em] text-zinc-500 font-bold mt-1 space-y-1">
-                      <p>Mr. Welgama: 072 34 22 445</p>
-                      <p>Mrs. Wijerathne: 077 50 62 057</p>
-                    </div>
-                  </div>
-                </div>
-              }
-              back={
-                <RSVPForm />
-              }
-            />
-          </motion.div>
 
 
 
@@ -1129,8 +1188,8 @@ export default function App() {
               front={
                 <div className="w-full h-full relative group">
                   <img
-                    src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/748802595.jpg?k=49aeb64e3bc34f1ad1b06b3a2f9ba42d730d11a1aee77a6b4217ed3a74b63eff&o="
-                    alt="Waters Edge Grand Ballroom"
+                    src="/WhatsApp Image 2026-06-25 at 18.44.02.jpeg"
+                    alt="Seethawaka Regency"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
@@ -1245,22 +1304,83 @@ export default function App() {
           </motion.div>
         </div>
 
+        <RSVPForm />
+
         <motion.footer
           initial={{ opacity: 0 }}
           animate={isOpened ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 1.5, delay: 2 }}
-          className="text-center pt-12 pb-12 space-y-6"
+          className="relative overflow-hidden bg-[#F5EFE0] border-t border-sage/20 pt-20 pb-8 text-umber"
         >
-          <div className="flex items-center justify-center gap-6 text-sage/40">
-            <div className="h-px w-16 bg-current" />
-            <span className="text-xs uppercase tracking-[0.6em] font-medium">Est. 2026</span>
-            <div className="h-px w-16 bg-current" />
-          </div>
-          <p className="serif italic text-zinc-500 text-xl max-w-lg mx-auto leading-relaxed">
-            "Love brought us together, made more beautiful with your presence"
-          </p>
-          <p className="serif text-sage/60 text-sm italic">We can't wait to celebrate with you</p>
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.14),transparent_52%)]" />
+          <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-sage/10 blur-3xl" />
+          <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-sage/10 blur-3xl" />
 
+          <div className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{ backgroundImage: `linear-gradient(rgba(212,175,55,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.5) 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div className="mb-16 grid grid-cols-1 gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="flex flex-col justify-center text-center"
+              >
+                <div className="mb-5 inline-flex items-center justify-center gap-2 self-center rounded-full border border-sage/35 bg-white/50 px-4 py-2 backdrop-blur-sm shadow-sm">
+                  <Sparkles className="h-3.5 w-3.5 text-sage" />
+                  <span className="text-[10px] uppercase tracking-[0.24em] text-sage font-bold">Thank You For Your Blessings</span>
+                </div>
+
+                <h2 className="mb-6 font-serif text-5xl font-medium tracking-wide text-sage md:text-6xl drop-shadow-sm">
+                  D <span className="text-3xl text-umber">&amp;</span> N
+                </h2>
+                <p className="mx-auto max-w-xl text-sm font-medium leading-relaxed text-umber/80">
+                  We look forward to sharing our joy and celebrating our holy union surrounded by the people we love most.
+                </p>
+                <a
+                  href="https://maps.app.goo.gl/z6cc6t5wNV8yrtMP9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-7 inline-flex items-center justify-center gap-2 self-center rounded-full border border-sage/45 bg-white/60 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-sage transition-colors hover:bg-sage/10 shadow-sm"
+                >
+                  <MapPin className="h-4 w-4" />
+                  Seethawaka Regency
+                </a>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+              viewport={{ once: true }}
+              className="group relative mb-10 flex w-full items-center justify-center overflow-hidden border-y border-sage/20 py-10"
+            >
+              <div className="absolute inset-0 w-[50%] skew-x-[-20deg] bg-gradient-to-r from-transparent via-sage/10 to-transparent -translate-x-full group-hover:animate-[shimmer_3s_infinite]" />
+
+              <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-center font-medium tracking-wide bg-gradient-to-r from-umber/60 via-sage to-umber/60 text-transparent bg-clip-text">
+                A New Chapter Begins
+              </p>
+            </motion.div>
+
+            <div className="flex flex-col items-center justify-between gap-4 px-4 text-center text-[10px] font-bold tracking-[0.1em] text-sage md:flex-row md:text-left">
+              <div className="space-y-2">
+                <p className="!text-sage">
+                  &copy; {new Date().getFullYear()} DEWNI &amp; NILANKA. All rights reserved.
+                </p>
+                <p className="!text-sage">
+                  Design and created by <span className="!text-sage font-black">InviteMint</span> | Connect WhatsApp: <a href="https://wa.me/94707819074" target="_blank" rel="noopener noreferrer" className="!text-sage hover:underline">+94 70 781 9074</a>
+                </p>
+              </div>
+              <p className="flex items-center justify-center gap-1.5 whitespace-nowrap text-umber font-medium">
+                Crafted with <Heart className="h-3 w-3 fill-sage text-sage animate-pulse" /> for our special day
+              </p>
+            </div>
+
+          </div>
         </motion.footer>
       </motion.main>
 
