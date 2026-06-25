@@ -11,22 +11,18 @@
   --font-sans: "Inter", sans-serif;
 
   /* Primary accent — drives all `sage` classes */
-  --color-sage: #D4AF37;
-  /* Gold */
+  --color-sage: #CAA78F; /* Soft Camel from the palette */
 
   /* Background — drives all `paper` classes */
-  --color-paper: #FFFFFF;
-  /* White */
+  --color-paper: #FAF8F5; /* Pearl White */
 
   /* Extended elegant palette */
-  --color-sand: #F7E7CE;
-  /* Champagne */
-  --color-taupe: #998375;
-  --color-rust: #c6ad99;
-  --color-umber: #c8b8ab;
-  --color-sienna: #daccc3;
-  --color-accent: #d7d4cf;
-  /* Added for completeness */
+  --color-sand: #EFE3D8;   /* Light Champagne */
+  --color-taupe: #9D7F75;  /* Dark Taupe */
+  --color-rust: #C3A690;   /* Warm Camel */
+  --color-umber: #D1B7AE;  /* Soft Mauve Taupe */
+  --color-sienna: #EADCD2; /* Pale Champagne */
+  --color-accent: #E6E2D8; /* Pale Pearl */
 }
 
 body {
