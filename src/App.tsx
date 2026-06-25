@@ -569,7 +569,7 @@ export default function App() {
               transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
               className="absolute top-40 md:top-24 left-0 right-0 text-center z-10 pointer-events-none"
             >
-              <h1 className="serif text-4xl md:text-6xl text-[#c79957] font-medium tracking-[0.2em] drop-shadow-xl">
+              <h1 className="serif text-4xl md:text-6xl text-[#c79957] font-bold tracking-[0.2em] drop-shadow-2xl">
                 Dewni & Nilanka
               </h1>
               <p className="mt-3 text-[10px] md:text-xs uppercase tracking-[0.6em] text-[#c79957]/90 font-bold drop-shadow-md">
@@ -788,7 +788,7 @@ export default function App() {
           <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-16 mt-4 md:mt-8 relative w-full px-2">
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-32 bg-sage/5 blur-3xl rounded-full" />
 
-            <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none">
+            <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[15vw] sm:text-7xl md:text-[10rem] text-sage drop-shadow-2xl font-bold relative z-10 leading-none">
               Dewni
             </motion.h2>
 
@@ -805,7 +805,7 @@ export default function App() {
               <div className="h-px w-6 md:w-24 bg-sage/20 hidden md:block" />
             </div>
 
-            <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[13vw] sm:text-6xl md:text-9xl text-sage drop-shadow-lg relative z-10 leading-none">
+            <motion.h2 whileHover={{ scale: 1.05 }} className="script text-[15vw] sm:text-7xl md:text-[10rem] text-sage drop-shadow-2xl font-bold relative z-10 leading-none">
               Nilanka
             </motion.h2>
           </div>
@@ -969,11 +969,11 @@ export default function App() {
 
                     {/* couple names */}
                     <div className="flex flex-col items-center justify-center mt-2 mb-1">
-                      <span className="script text-[36px] md:text-[52px] text-sage drop-shadow-sm leading-none">
+                      <span className="script text-[42px] md:text-[60px] text-sage drop-shadow-md font-bold leading-none">
                         Dewni
                       </span>
                       <span className="text-taupe/40 text-sm md:text-base font-serif italic my-1">&amp;</span>
-                      <span className="script text-[36px] md:text-[52px] text-sage drop-shadow-sm leading-none">
+                      <span className="script text-[42px] md:text-[60px] text-sage drop-shadow-md font-bold leading-none">
                         Nilanka
                       </span>
                     </div>
@@ -1087,19 +1087,19 @@ export default function App() {
             <div className="absolute inset-0 opacity-10"
               style={{ backgroundImage: 'linear-gradient(rgba(212,175,55,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.55) 1px, transparent 1px)', backgroundSize: '38px 38px' }} />
 
-            <div className="relative z-10 flex h-full flex-col items-center justify-end pb-12 px-8 text-center text-[#1a0f0a]">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#1a0f0a]/20 bg-white/50 px-4 py-1.5 backdrop-blur-sm">
-                <Sparkles className="h-3.5 w-3.5 text-[#1a0f0a]" />
-                <p className="text-[10px] uppercase tracking-[0.32em] text-[#1a0f0a] drop-shadow-sm font-bold">Blessed Union</p>
+            <div className="relative z-10 flex h-full flex-col items-center justify-end pb-12 px-8 text-center text-[#5A453D]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#5A453D]/20 bg-white/50 px-4 py-1.5 backdrop-blur-sm">
+                <Sparkles className="h-3.5 w-3.5 text-[#5A453D]" />
+                <p className="text-[9px] uppercase tracking-[0.32em] text-[#5A453D] drop-shadow-sm font-medium">Blessed Union</p>
               </div>
-              <h3 className="mt-5 serif text-4xl text-[#1a0f0a] drop-shadow-md font-bold">
-                Dewni <span className="text-[#1a0f0a]">&amp;</span> Nilanka
+              <h3 className="mt-4 serif text-3xl text-[#5A453D] drop-shadow-md font-light">
+                Dewni <span className="text-[#5A453D]">&amp;</span> Nilanka
               </h3>
-              <p className="mt-4 text-sm leading-7 text-[#1a0f0a] font-bold max-w-[280px]">
+              <p className="mt-3 text-xs leading-6 text-[#5A453D] font-light max-w-[260px]">
                 "Love is patient, love is kind." Join us as we exchange vows in faith, gratitude, and joy.
               </p>
-              <div className="mt-8 h-px w-28 bg-[#1a0f0a]/40" />
-              <p className="mt-5 text-xs uppercase tracking-[0.28em] text-[#1a0f0a] font-black">13 August 2026</p>
+              <div className="mt-6 h-px w-24 bg-[#5A453D]/30" />
+              <p className="mt-4 text-[10px] uppercase tracking-[0.28em] text-[#5A453D] font-medium">13 August 2026</p>
             </div>
 
             <motion.div
@@ -1284,17 +1284,25 @@ export default function App() {
               back={
                 <div className="w-full h-full flex flex-col justify-center items-center px-4 md:px-8">
                   <Clock size={24} className="text-sage mb-4 md:mb-6 opacity-70 md:w-8 md:h-8" />
-                  <h4 className="serif text-2xl md:text-3xl text-sage mb-4 md:mb-8">Timeline</h4>
+                  <h4 className="serif text-3xl md:text-4xl text-sage mb-4 md:mb-8 font-bold">Timeline</h4>
 
-                  <div className="w-full max-w-sm space-y-4 md:space-y-6 text-left">
-                    <div className="flex items-start gap-2 md:gap-4">
-                      <span className="serif text-sage font-bold text-[10px] md:text-base w-12 md:w-20 text-right shrink-0 pt-1">9:00 AM</span>
+                  <div className="w-full max-w-sm space-y-6 md:space-y-8 text-left">
+                    <div className="flex items-start gap-3 md:gap-5">
+                      <span className="serif text-sage font-bold text-sm md:text-lg w-16 md:w-24 text-right shrink-0 pt-1">9:00 AM</span>
+                      <div className="w-px h-full bg-sage/30 relative mt-2 -ml-[1px] md:-ml-2 shrink-0">
+                        <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-sage" />
+                      </div>
+                      <div className="pb-4">
+                        <p className="text-xs md:text-sm font-bold uppercase tracking-wider">Welcome</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3 md:gap-5">
+                      <span className="serif text-sage font-bold text-sm md:text-lg w-16 md:w-24 text-right shrink-0 pt-1">9:53 AM</span>
                       <div className="w-px h-full bg-sage/30 relative mt-2 -ml-[1px] md:-ml-2 shrink-0">
                         <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-sage" />
                       </div>
                       <div>
-                        <p className="text-[10px] md:text-xs font-bold uppercase tracking-wider">Welcome & Poruwa Ceremony</p>
-                        <p className="serif text-[10px] md:text-xs italic text-zinc-500">Poruwa at 9:53 AM</p>
+                        <p className="text-xs md:text-sm font-bold uppercase tracking-wider text-[#A84C2C]">Poruwa Ceremony</p>
                       </div>
                     </div>
                   </div>
