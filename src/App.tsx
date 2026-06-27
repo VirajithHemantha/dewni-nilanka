@@ -300,7 +300,7 @@ function RSVPForm() {
             <Sparkles className="absolute -top-2 -right-4 h-8 w-8 text-sage/70 animate-pulse" />
             <Sparkles className="absolute -bottom-4 -left-2 h-6 w-6 text-sage/50 animate-pulse" />
           </motion.div>
-          
+
           <motion.div
             whileHover={{ scale: 1.05, rotate: 2 }}
             className="mb-6 inline-flex items-center gap-2 rounded-full border border-sage/40 bg-white/70 px-5 py-2.5 shadow-sm backdrop-blur-md"
@@ -463,7 +463,7 @@ function RSVPForm() {
 export default function App() {
   const [isFlapOpen, setIsFlapOpen] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -509,6 +509,9 @@ export default function App() {
 
   const handleOpen = () => {
     setIsFlapOpen(true);
+    if (audioRef.current && !isMuted) {
+      audioRef.current.play().catch(() => { });
+    }
     setTimeout(() => {
       setIsOpened(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -538,7 +541,7 @@ export default function App() {
     <div
       className="min-h-screen bg-paper text-zinc-800 selection:bg-sage/20 overflow-x-hidden relative"
     >
-      <audio ref={audioRef} src="/song.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/song.mp3" loop autoPlay preload="auto" />
 
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-sage origin-left z-[1000]" style={{ scaleX }} />
 
@@ -959,7 +962,7 @@ export default function App() {
 
                   {/* content */}
                   <div className="relative z-10 px-4 pt-6 pb-4 md:px-8 md:py-8 flex flex-col items-center text-center gap-3">
-                    
+
                     {/* top ornament */}
                     <div className="flex items-center gap-3 w-full max-w-[200px]">
                       <div className="flex-1 h-px bg-gradient-to-r from-transparent to-taupe/40" />
@@ -1256,9 +1259,9 @@ export default function App() {
               front={
                 <div className="w-full h-full relative group overflow-hidden">
                   <img
-                    src="/time.png"
+                    src="/WhatsApp Image 2026-06-27 at 22.15.28.jpeg"
                     alt="Timeline"
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
@@ -1267,7 +1270,7 @@ export default function App() {
                     <motion.div initial={{ scale: 0.8, opacity: 0 }} whileHover={{ scale: 1, opacity: 1 }} className="bg-white/10 backdrop-blur-lg p-6 rounded-full border border-white/20">
                       <Clock size={32} className="text-white" />
                     </motion.div>
-                    <p className="serif text-white text-3xl md:text-5xl italic tracking-widest mt-6 drop-shadow-lg">Event Timeline</p>
+                    <p className="serif text-white text-3xl md:text-5xl italic tracking-widest mt-6 bg-black/40 backdrop-blur-md px-8 py-3 rounded-full border border-white/20 shadow-2xl">Event Timeline</p>
                     <div className="mt-4 flex gap-2">
                       {[1, 2, 3].map((i) => (
                         <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/50" />
