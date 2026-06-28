@@ -1259,7 +1259,7 @@ export default function App() {
               front={
                 <div className="w-full h-full relative group overflow-hidden">
                   <img
-                    src="/WhatsApp Image 2026-06-27 at 22.15.28.jpeg"
+                    src="/time.png"
                     alt="Timeline"
                     className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110"
                     referrerPolicy="no-referrer"
