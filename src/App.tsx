@@ -215,7 +215,7 @@ type GuestEntry = {
 };
 
 function RSVPForm() {
-  const endpoint = (import.meta as any).env?.VITE_RSVP_ENDPOINT as string | undefined;
+  const endpoint = "https://script.google.com/macros/s/AKfycbzc1qJCp6E0EF7fHJW6ukCHaX34V5FbG_TnMY3zeQN1S3mBF2S3lFHq-kU131k21qs6/exec";
 
   const [formData, setFormData] = useState({
     name: '',
